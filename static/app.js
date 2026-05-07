@@ -51,17 +51,54 @@ filterButtons.forEach((btn) => {
   btn.addEventListener("click", () => filterGallery(btn.dataset.filter));
 });
 
-/* ── Scroll-triggered card reveal ────────────────────────── */
-const observer = new IntersectionObserver(
+/* ── Scroll-triggered reveals ────────────────────────────── */
+const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
+        entry.target.classList.add("revealed");
+        revealObserver.unobserve(entry.target);
       }
     });
   },
-  { threshold: 0.12 }
+  { threshold: 0.1 }
 );
 
-galleryItems.forEach((item) => observer.observe(item));
+// project cards
+galleryItems.forEach((item) => revealObserver.observe(item));
+
+// cert cards
+document.querySelectorAll(".cert-card").forEach((el, i) => {
+  el.style.animationDelay = `${i * 0.08}s`;
+  revealObserver.observe(el);
+});
+
+// blog cards
+document.querySelectorAll(".blog-card").forEach((el, i) => {
+  el.style.animationDelay = `${i * 0.08}s`;
+  revealObserver.observe(el);
+});
+
+/* ── Skill bar animations ────────────────────────────────── */
+const skillObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const fill = entry.target.querySelector(".skill-chip-level-fill");
+        if (fill) {
+          const w = fill.style.getPropertyValue("--w") || "0.7";
+          fill.style.width = `${parseFloat(w) * 100}%`;
+        }
+        entry.target.classList.add("revealed");
+        skillObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.2 }
+);
+
+document.querySelectorAll(".skill-chip").forEach((chip, i) => {
+  chip.style.transitionDelay = `${i * 0.04}s`;
+  skillObserver.observe(chip);
+});

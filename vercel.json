@@ -2,10 +2,12 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "routes": [
-    { "src": "/work",    "dest": "/work.html" },
-    { "src": "/about",   "dest": "/about.html" },
-    { "src": "/stories", "dest": "/stories.html" },
-    { "src": "/contact", "dest": "/contact.html" },
-    { "src": "/(.*)",    "dest": "/$1" }
+    { "src": "/work",         "dest": "/work.html" },
+    { "src": "/about",        "dest": "/about.html" },
+    { "src": "/stories",      "dest": "/stories.html" },
+    { "src": "/contact",      "dest": "/contact.html" },
+    { "src": "/skills",       "dest": "/skills.html" },
+    { "src": "/certificates", "dest": "/certificates.html" },
+    { "src": "/(.*)",         "dest": "/$1" }
   ]
 }

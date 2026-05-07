@@ -3,30 +3,117 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Stories | Kapil</title>
+    <meta name="description" content="Kapil's blog — notes on AI, backend engineering, and building in public." />
+    <title>Blog | Kapil</title>
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body class="page-body">
-    <nav class="nav">
+
+    <nav class="nav" id="mainNav">
       <a class="nav-brand" href="/">Kapil</a>
-      <div class="desktop-nav"><a href="/work">Work</a><a href="/about">About</a><a href="/stories">Stories</a><a href="/contact">Contact</a></div>
+      <div class="desktop-nav">
+        <a href="/work">Work</a>
+        <a href="/skills">Skills</a>
+        <a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </div>
       <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
     </nav>
-    <div id="mobileMenu" class="mobile-menu"><a href="/work">Work</a><a href="/about">About</a><a href="/stories">Stories</a><a href="/contact">Contact</a></div>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a>
+      <a href="/skills">Skills</a>
+      <a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </div>
+
     <main>
       <header class="page-hero">
-        <p class="eyebrow animate-fade-up delay-100">Stories</p>
-        <h1 class="animate-fade-up delay-200">Experience, community work, and skill notes.</h1>
+        <p class="eyebrow animate-fade-up delay-100">Blog</p>
+        <h1 class="animate-fade-up delay-200">Notes on AI, engineering, and building useful things.</h1>
       </header>
-      <section class="section stories-section">
-        <div class="stories-grid">
-          <article class="story-card"><p>Internship</p><h3>Web Developer Intern · Weazy</h3><span>Built Flask APIs, image scraping pipelines, and Azure-ready services that reduced manual catalog work by 60%.</span></article>
-          <article class="story-card"><p>Community</p><h3>Student Developer · OPEN Community</h3><span>Contributed to Python and JavaScript projects and led onboarding sessions on Flutter and Git workflows.</span></article>
-          <article class="story-card"><p>Stack</p><h3>Python, AI, APIs, Cloud</h3><span>TensorFlow, PyTorch, LangChain, Django, FastAPI, Docker, Kubernetes, PostgreSQL, MongoDB, and FAISS.</span></article>
+
+      <section class="blog-section">
+        <div class="blog-inner">
+          <p class="section-kicker">Articles & Stories</p>
+          <div class="blog-grid">
+
+            <article class="blog-card">
+              <span class="blog-tag">Internship · Experience</span>
+              <h3>What I Built at Weazy as a Web Dev Intern</h3>
+              <p>Flask APIs, image scraping pipelines, and Azure-ready microservices — how I reduced manual catalog work by 60% in 8 weeks.</p>
+              <div class="blog-meta">
+                <span>6 min read</span>
+                <span>2024</span>
+              </div>
+            </article>
+
+            <article class="blog-card">
+              <span class="blog-tag">AI · Tutorial</span>
+              <h3>Building a RAG Pipeline from Scratch with LangChain & FAISS</h3>
+              <p>A walkthrough of how I built Neobot — a retrieval-augmented generation assistant using FastAPI, FAISS vector search, and Docker.</p>
+              <div class="blog-meta">
+                <span>10 min read</span>
+                <span>2024</span>
+              </div>
+            </article>
+
+            <article class="blog-card">
+              <span class="blog-tag">Community · Open Source</span>
+              <h3>Leading Onboarding Sessions at OPEN Community</h3>
+              <p>How I ran Git and Flutter workshops for 30+ students, and what I learned about teaching technical concepts to beginners.</p>
+              <div class="blog-meta">
+                <span>4 min read</span>
+                <span>2024</span>
+              </div>
+            </article>
+
+            <article class="blog-card">
+              <span class="blog-tag">Cloud · DevOps</span>
+              <h3>Deploying a CLI Tool on Azure App Service with GitHub Actions</h3>
+              <p>How URLZAP went from a local Python script to a CI/CD-deployed cloud app — step by step with GitHub Actions and Azure.</p>
+              <div class="blog-meta">
+                <span>7 min read</span>
+                <span>2024</span>
+              </div>
+            </article>
+
+            <article class="blog-card">
+              <span class="blog-tag">Django · Backend</span>
+              <h3>Integrating Google Books API into a Django App</h3>
+              <p>The challenges and solutions behind connecting Supabase, Google Books API, and Django auth in NovelNet — a full-stack book platform.</p>
+              <div class="blog-meta">
+                <span>8 min read</span>
+                <span>2024</span>
+              </div>
+            </article>
+
+            <article class="blog-card">
+              <span class="blog-tag">Stack · Notes</span>
+              <h3>My Python AI & Backend Stack Explained</h3>
+              <p>A breakdown of every tool in my stack — Python, FastAPI, LangChain, FAISS, Docker, Kubernetes, PostgreSQL — and why I use each one.</p>
+              <div class="blog-meta">
+                <span>5 min read</span>
+                <span>2025</span>
+              </div>
+            </article>
+
+          </div>
         </div>
       </section>
     </main>
-    <footer><span>Kapil · Stories</span><a href="/contact">Contact</a></footer>
+
+    <footer>
+      <span>© 2025 Kapil</span>
+      <div class="footer-links">
+        <a href="https://github.com/yadavkapil23" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+
     <script src="/static/app.js"></script>
   </body>
 </html>
