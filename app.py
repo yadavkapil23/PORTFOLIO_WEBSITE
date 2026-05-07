@@ -22,6 +22,8 @@ ROUTES = {
     "/stories/": "stories.html",
     "/contact": "contact.html",
     "/contact/": "contact.html",
+    "/testimonials": "testimonials.html",
+    "/testimonials/": "testimonials.html",
 }
 
 
