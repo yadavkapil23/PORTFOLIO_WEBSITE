@@ -7,7 +7,7 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).parent.resolve()
-TEMPLATE_DIR = ROOT / "templates"
+TEMPLATE_DIR = ROOT
 STATIC_DIR = ROOT / "static"
 HOST = "127.0.0.1"
 PORT = 8000
