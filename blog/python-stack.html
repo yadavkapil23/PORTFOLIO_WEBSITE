@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Python AI & Backend Stack Explained | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <div class="article-hero">
+      <div class="article-hero-inner">
+        <a class="article-back" href="/stories">← Back to Blog</a>
+        <p class="article-tag">Stack · Notes</p>
+        <h1>My Python AI & Backend Stack Explained</h1>
+        <div class="article-meta">
+          <span>Kapil</span>
+          <span>2025</span>
+          <span>5 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <div class="article-body-inner">
+
+        <p>People often ask what tools I use and why. Here's a complete breakdown of my current stack — the tools I reach for when building AI systems and backend APIs — with honest notes on what I like and what I'd replace in a production context.</p>
+
+        <h2>Python — The Foundation</h2>
+        <p>Everything I build runs on Python. It's not the fastest language, but it has the best ecosystem for AI/ML work by a wide margin, and the productivity gains are real. I use Python 3.11+ for all new projects — the performance improvements over 3.9 are significant, and the newer syntax for type hints is cleaner.</p>
+
+        <h2>FastAPI — For APIs</h2>
+        <p>FastAPI is my default for building APIs. The reasons are straightforward: automatic OpenAPI documentation, native async support, and Python type hints that double as input validation via Pydantic. A basic endpoint looks like this:</p>
+        <pre><code>from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class QueryRequest(BaseModel):
+    question: str
+    max_results: int = 5
+
+@app.post("/ask")
+async def ask(body: QueryRequest):
+    result = await process_query(body.question, body.max_results)
+    return {"answer": result}</code></pre>
+        <p>The auto-generated docs at <code>/docs</code> alone save hours during development and integration. I use Django when I need a full web framework with auth, admin, and ORM built in — but for pure APIs, FastAPI wins.</p>
+
+        <h2>LangChain — For AI Pipelines</h2>
+        <p>LangChain is the glue that connects LLMs, vector stores, retrievers, and tools into coherent pipelines. It abstracts away a lot of boilerplate, but it's worth understanding what happens under the hood — especially for debugging when something goes wrong in a chain.</p>
+        <p>My honest take: LangChain is excellent for prototyping. For production, I sometimes prefer writing the orchestration logic myself because LangChain's abstractions can make debugging difficult when you're deep in a complex chain.</p>
+
+        <h2>FAISS — For Vector Search</h2>
+        <p>FAISS (Facebook AI Similarity Search) is what I use for local vector search in my RAG systems. It's extremely fast for nearest-neighbor lookups and works entirely in-memory or on disk — no external service required. For development and small to medium datasets, it's perfect.</p>
+        <p>For production at scale, I'd move to a hosted vector database — Pinecone, Weaviate, or Qdrant — but FAISS gets you very far without the operational overhead.</p>
+
+        <h2>Docker — For Packaging</h2>
+        <p>Everything I deploy is containerized. Docker ensures the environment is consistent from my laptop to CI to production. My typical Python Dockerfile:</p>
+        <pre><code>FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre>
+        <p>I use <code>uvicorn</code> (not <code>gunicorn</code>) for FastAPI apps since it's async-native. For Django, <code>gunicorn</code> is the right choice.</p>
+
+        <h2>PostgreSQL + Supabase</h2>
+        <p>PostgreSQL is my database of choice — it's reliable, has excellent JSON support, and full-text search built in. I use Supabase as a hosted PostgreSQL provider for projects that don't need a self-managed database. Supabase also provides auth and a real-time API layer, which saves setup time.</p>
+
+        <h2>Azure — For Cloud Deployment</h2>
+        <p>I've used Azure App Service for deploying containerized apps. It integrates well with GitHub Actions for CI/CD, and the free tier is generous enough for personal projects and demos. For compute-heavy AI workloads, I'd look at Azure Container Instances or AKS.</p>
+
+        <h2>GitHub Actions — For CI/CD</h2>
+        <p>Every project I deploy has a GitHub Actions workflow. At minimum: run tests on every push, build a Docker image on merge to main, deploy to the hosting platform. Automating this from day one prevents the "it works locally" class of deployment bugs entirely.</p>
+
+        <h2>What I'd Add</h2>
+        <p>The tool I'm most actively learning right now is Kubernetes for container orchestration — specifically for deploying multi-service AI systems where the retriever, generator, and API layer need to scale independently. Kubernetes is complex but the control it gives you over deployment is worth it at scale.</p>
+        <p>I'm also exploring LlamaIndex as an alternative to LangChain for RAG pipelines — it's more focused and has cleaner abstractions for document indexing specifically.</p>
+
+      </div>
+    </div>
+
+    <div class="article-footer">
+      <div class="article-footer-inner">
+        <span>© 2025 Kapil</span>
+        <a href="/stories">← All Articles</a>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Integrating Google Books API into a Django App | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <div class="article-hero">
+      <div class="article-hero-inner">
+        <a class="article-back" href="/stories">← Back to Blog</a>
+        <p class="article-tag">Django · Backend</p>
+        <h1>Integrating Google Books API into a Django App</h1>
+        <div class="article-meta">
+          <span>Kapil</span>
+          <span>2024</span>
+          <span>8 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <div class="article-body-inner">
+
+        <p>NovelNet is a book discovery and review platform I built with Django. The core challenge was data: a good book platform needs a rich catalog of books with covers, descriptions, authors, and ISBNs. Building and maintaining that manually would be impossible. The Google Books API made it possible to have millions of books available from day one.</p>
+
+        <h2>Why Google Books API?</h2>
+        <p>Google Books has an enormous catalog — over 40 million books — with structured metadata including titles, authors, descriptions, cover images, categories, and publication dates. It's free for reasonable usage and well-documented. The main limitation is rate limits (1000 requests per day without an API key, much more with one), which we handled with caching.</p>
+
+        <h2>The Django Model Design</h2>
+        <p>I didn't want to store all book data in my database — that would be massive and require constant syncing. Instead, I used a hybrid approach: store only the books that users interact with (review, save, or search), and fetch the rest from the API on demand.</p>
+        <pre><code>class Book(models.Model):
+    google_books_id = models.CharField(max_length=100, unique=True)
+    title = models.CharField(max_length=500)
+    authors = models.JSONField(default=list)
+    description = models.TextField(blank=True)
+    thumbnail = models.URLField(blank=True)
+    published_date = models.CharField(max_length=20, blank=True)
+    categories = models.JSONField(default=list)
+    cached_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        indexes = [models.Index(fields=["google_books_id"])]</code></pre>
+        <p>The <code>google_books_id</code> field is the key — it's Google's unique identifier for each book, and it's what we use to sync local records with the API.</p>
+
+        <h2>The API Integration Layer</h2>
+        <p>I wrote a service module to handle all Google Books API communication. Keeping API calls in a dedicated service layer (not in views, not in models) made it easy to mock in tests and swap out later.</p>
+        <pre><code>import requests
+from django.conf import settings
+
+BOOKS_API_BASE = "https://www.googleapis.com/books/v1"
+
+def search_books(query: str, max_results: int = 10) -> list[dict]:
+    response = requests.get(
+        f"{BOOKS_API_BASE}/volumes",
+        params={
+            "q": query,
+            "maxResults": max_results,
+            "key": settings.GOOGLE_BOOKS_API_KEY,
+        },
+        timeout=5,
+    )
+    response.raise_for_status()
+    data = response.json()
+    return [parse_volume(item) for item in data.get("items", [])]
+
+def parse_volume(item: dict) -> dict:
+    info = item.get("volumeInfo", {})
+    return {
+        "google_books_id": item["id"],
+        "title": info.get("title", "Unknown Title"),
+        "authors": info.get("authors", []),
+        "description": info.get("description", ""),
+        "thumbnail": info.get("imageLinks", {}).get("thumbnail", ""),
+        "published_date": info.get("publishedDate", ""),
+        "categories": info.get("categories", []),
+    }</code></pre>
+
+        <h2>Caching to Stay Within Rate Limits</h2>
+        <p>Making an API call on every search would quickly hit rate limits and add latency. I used Django's cache framework with a Redis backend (via Supabase) to cache search results for 24 hours.</p>
+        <pre><code>from django.core.cache import cache
+
+def search_books_cached(query: str) -> list[dict]:
+    cache_key = f"books_search_{query.lower().replace(' ', '_')}"
+    cached = cache.get(cache_key)
+    if cached:
+        return cached
+    results = search_books(query)
+    cache.set(cache_key, results, timeout=86400)  # 24 hours
+    return results</code></pre>
+
+        <h2>Connecting Supabase as the Database</h2>
+        <p>I used Supabase (PostgreSQL) as the database backend instead of SQLite. The connection is straightforward in Django — Supabase provides a standard PostgreSQL connection string that you drop into <code>DATABASES</code> in settings.</p>
+        <pre><code>DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("SUPABASE_DB_NAME"),
+        "USER": env("SUPABASE_DB_USER"),
+        "PASSWORD": env("SUPABASE_DB_PASSWORD"),
+        "HOST": env("SUPABASE_DB_HOST"),
+        "PORT": "5432",
+    }
+}</code></pre>
+        <p>One thing to watch: Supabase's free tier connections can time out. I added <code>CONN_MAX_AGE: 0</code> to prevent Django from trying to reuse stale connections.</p>
+
+        <h2>The Review System</h2>
+        <p>Once a book is in the local database (either from a search or a direct lookup by ID), users can write reviews. Each review is linked to both a user and a book:</p>
+        <pre><code>class Review(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="reviews")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)</code></pre>
+
+        <h2>What I'd Do Differently</h2>
+        <p>If I were building NovelNet again, I'd implement a proper background task queue (Celery) for pre-fetching books instead of lazy-loading them on first search. I'd also add full-text search on the local database using PostgreSQL's built-in <code>tsvector</code> for faster, more relevant results on frequently-searched titles.</p>
+        <p>The live version is deployed on Render and available to try — the search works fast thanks to the caching layer.</p>
+
+      </div>
+    </div>
+
+    <div class="article-footer">
+      <div class="article-footer-inner">
+        <span>© 2025 Kapil</span>
+        <a href="/stories">← All Articles</a>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
