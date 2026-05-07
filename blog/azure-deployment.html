@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deploying a CLI Tool on Azure App Service | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <div class="article-hero">
+      <div class="article-hero-inner">
+        <a class="article-back" href="/stories">← Back to Blog</a>
+        <p class="article-tag">Cloud · DevOps</p>
+        <h1>Deploying a CLI Tool on Azure App Service with GitHub Actions</h1>
+        <div class="article-meta">
+          <span>Kapil</span>
+          <span>2024</span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <div class="article-body-inner">
+
+        <p>URLZAP started as a simple Python script I wrote to shorten URLs from the command line. It used <code>argparse</code>, called a URL shortening API, and printed the result. Three minutes of work. The interesting part came when I decided to deploy it as a proper cloud service and automate the entire release process with GitHub Actions.</p>
+
+        <h2>From Local Script to Web Service</h2>
+        <p>The original CLI tool was purely local. To make it accessible as a web service, I wrapped it in a Flask application that exposed the same functionality over HTTP. The core logic stayed the same — only the interface changed.</p>
+        <pre><code>@app.route("/shorten", methods=["POST"])
+def shorten():
+    data = request.get_json()
+    original_url = data.get("url")
+    if not original_url:
+        return jsonify({"error": "URL required"}), 400
+    short = generate_short_code(original_url)
+    store_mapping(short, original_url)
+    return jsonify({"short_url": f"{BASE_URL}/{short}"})</code></pre>
+
+        <h2>Containerizing with Docker</h2>
+        <p>Before touching Azure, I containerized the app with Docker. This was non-negotiable — it guaranteed that what worked on my machine would work in the cloud without any "works on my machine" surprises.</p>
+        <pre><code>FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 8000
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8000"]</code></pre>
+        <p>I used <code>gunicorn</code> instead of Flask's development server — an important distinction for production. Flask's built-in server is single-threaded and not designed for real traffic.</p>
+
+        <h2>Setting Up Azure App Service</h2>
+        <p>I used Azure App Service's container deployment option, which takes a Docker image and runs it. The setup through the Azure portal is straightforward: create a resource group, create an App Service plan (I used the free tier for this project), and configure the container settings.</p>
+        <p>The key Azure configuration I needed:</p>
+        <ul>
+          <li>Set <code>WEBSITES_PORT</code> to <code>8000</code> to match the exposed port</li>
+          <li>Configure the startup command if needed</li>
+          <li>Set environment variables through the App Service configuration panel</li>
+        </ul>
+
+        <h2>Automating Deployment with GitHub Actions</h2>
+        <p>This is the part I enjoyed most. Instead of manually pushing a new Docker image every time I made a change, I wrote a GitHub Actions workflow that does it automatically on every push to <code>main</code>.</p>
+        <pre><code>name: Deploy to Azure
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build Docker image
+        run: docker build -t urlzap:latest .
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: urlzap
+          images: urlzap:latest</code></pre>
+        <p>The <code>AZURE_CREDENTIALS</code> secret is a service principal JSON that gives GitHub Actions permission to deploy to my Azure subscription. You generate it with the Azure CLI:</p>
+        <pre><code>az ad sp create-for-rbac --name "urlzap-deploy" \
+  --role contributor \
+  --scopes /subscriptions/{subscription-id} \
+  --sdk-auth</code></pre>
+
+        <h2>What Broke and How I Fixed It</h2>
+        <p>The deployment pipeline didn't work perfectly first try. The main issue was port binding — Azure App Service routes traffic to port 80 by default, but my container was listening on 8000. Setting the <code>WEBSITES_PORT</code> app setting fixed it.</p>
+        <p>The second issue was cold start latency on the free tier. The service would sleep after inactivity, causing 10-15 second delays on the first request. For a production app you'd pay for an always-on tier, but for a project it's acceptable.</p>
+
+        <h2>The End Result</h2>
+        <p>URLZAP is live on Azure App Service. Every push to the main branch triggers a fresh deployment automatically. The whole CI/CD pipeline from commit to live takes about 3 minutes. It's the kind of setup I now apply to every project I deploy.</p>
+
+      </div>
+    </div>
+
+    <div class="article-footer">
+      <div class="article-footer-inner">
+        <span>© 2025 Kapil</span>
+        <a href="/stories">← All Articles</a>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
