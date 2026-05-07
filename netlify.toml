@@ -72,3 +72,8 @@
   from = "/projects/urlzap"
   to = "/projects/urlzap.html"
   status = 200
+
+[[redirects]]
+  from = "/projects/vesselvoice"
+  to = "/projects/vesselvoice.html"
+  status = 200
