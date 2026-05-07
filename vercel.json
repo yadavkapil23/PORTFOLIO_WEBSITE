@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/templates/index.html" },
+    { "source": "/work", "destination": "/templates/work.html" },
+    { "source": "/about", "destination": "/templates/about.html" },
+    { "source": "/stories", "destination": "/templates/stories.html" },
+    { "source": "/contact", "destination": "/templates/contact.html" }
+  ]
+}

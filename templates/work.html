@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Work | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body class="page-body">
+    <nav class="nav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a>
+        <a href="/about">About</a>
+        <a href="/stories">Stories</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/about">About</a><a href="/stories">Stories</a><a href="/contact">Contact</a>
+    </div>
+
+    <main>
+      <header class="page-hero">
+        <p class="eyebrow animate-fade-up delay-100">Work</p>
+        <h1 class="animate-fade-up delay-200">Selected systems with real deployment and engineering depth.</h1>
+      </header>
+
+      <section class="section work-section">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Projects</p>
+            <h2>AI retrieval, product platforms, and cloud utilities.</h2>
+          </div>
+          <div class="filters" id="filters">
+            <button class="filter-btn active" type="button" data-filter="all">All</button>
+            <button class="filter-btn" type="button" data-filter="ai">AI</button>
+            <button class="filter-btn" type="button" data-filter="web">Web</button>
+            <button class="filter-btn" type="button" data-filter="cloud">Cloud</button>
+          </div>
+        </div>
+
+        <div id="gallery" class="masonry-grid">
+          <article class="gallery-item project-tile visible" data-category="ai">
+            <div class="project-visual ai-visual"><span>RAG</span></div>
+            <div class="project-copy">
+              <p>AI Assistant</p>
+              <h3>RAG Based Assistant</h3>
+              <span>LangChain · FastAPI · Docker · Kubernetes · FAISS</span>
+              <a href="https://github.com/yadavkapil23/Neobot_RAG.git" target="_blank" rel="noreferrer">View Code</a>
+            </div>
+          </article>
+          <article class="gallery-item project-tile visible" data-category="web">
+            <div class="project-visual web-visual"><span>BK</span></div>
+            <div class="project-copy">
+              <p>Book Platform</p>
+              <h3>NovelNet</h3>
+              <span>Django · Supabase · Google Books API · PostgreSQL</span>
+              <a href="https://netnovel.onrender.com/" target="_blank" rel="noreferrer">Live Demo</a>
+            </div>
+          </article>
+          <article class="gallery-item project-tile visible" data-category="cloud">
+            <div class="project-visual cloud-visual"><span>UZ</span></div>
+            <div class="project-copy">
+              <p>Cloud Utility</p>
+              <h3>URLZAP</h3>
+              <span>Azure App Service · GitHub Actions · Argparse · CLI</span>
+              <a href="https://urlzap-c0dabcggbca5ftb0.centralindia-01.azurewebsites.net/" target="_blank" rel="noreferrer">Live Demo</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer><span>Kapil · Work</span><a href="/">Home</a></footer>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Kapil's portfolio landing page for AIML and web development." />
+    <title>Kapil | AIML & Web Developer</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a>
+        <a href="/about">About</a>
+        <a href="/stories">Stories</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a>
+      <a href="/about">About</a>
+      <a href="/stories">Stories</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    <main>
+      <section class="hero">
+        <div class="hero-bg" aria-hidden="true">
+          <div class="code-card card-one"><span>FastAPI</span><strong>RAG pipeline</strong><p>retrieve -> rank -> generate</p></div>
+          <div class="code-card card-two"><span>Django</span><strong>NovelNet</strong><p>reviews · auth · books api</p></div>
+          <div class="code-card card-three"><span>Azure</span><strong>URLZAP</strong><p>short links at scale</p></div>
+        </div>
+
+        <div class="hero-inner">
+          <p class="eyebrow animate-fade-up delay-200">AIML · Python Backend · Web Development</p>
+          <h1 class="animate-fade-up delay-300">
+            Building<br />
+            <em>useful</em> AI &<br />
+            web systems
+          </h1>
+          <p class="hero-copy animate-fade-up delay-400">
+            I am Kapil, a third-year B.Tech CSE student at UPES. I build RAG assistants, backend APIs, and deployed web
+            products with Python, FastAPI, Django, LangChain, and Azure.
+          </p>
+          <div class="hero-actions animate-fade-up delay-500">
+            <a class="button primary" href="/work">View Work</a>
+            <a class="button ghost" href="/about">About Me</a>
+            <a class="button ghost" href="/static/assets/Kapil_Resume.pdf" download>Resume</a>
+          </div>
+        </div>
+
+        <div class="scroll-indicator animate-fade-up delay-600" aria-hidden="true">
+          <span>Explore</span>
+          <div><i></i></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Kapil · Portfolio</span>
+      <a href="/contact">Contact</a>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
