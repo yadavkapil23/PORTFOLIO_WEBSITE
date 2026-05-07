@@ -24,11 +24,14 @@ ROUTES = {
     "/contact/": "contact.html",
     "/testimonials": "testimonials.html",
     "/testimonials/": "testimonials.html",
+    "/skills": "skills.html",
+    "/skills/": "skills.html",
+    "/certificates": "certificates.html",
+    "/certificates/": "certificates.html",
 }
 
 
 class PortfolioHandler(SimpleHTTPRequestHandler):
-    """Tiny dependency-free Python server for the portfolio."""
 
     def do_GET(self) -> None:
         route = unquote(self.path.split("?", 1)[0])
