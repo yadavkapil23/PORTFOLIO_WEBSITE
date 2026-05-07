@@ -74,9 +74,11 @@ document.querySelectorAll(".cert-card").forEach((el, i) => {
   revealObserver.observe(el);
 });
 
-// blog cards
-document.querySelectorAll(".blog-card").forEach((el, i) => {
-  el.style.animationDelay = `${i * 0.08}s`;
+// blog featured + list items
+document.querySelectorAll(".blog-featured, .blog-list-item").forEach((el, i) => {
+  if (el.classList.contains("blog-list-item")) {
+    el.style.transitionDelay = `${i * 0.07}s`;
+  }
   revealObserver.observe(el);
 });
 

@@ -38,68 +38,91 @@
 
       <section class="blog-section">
         <div class="blog-inner">
-          <p class="section-kicker">Articles & Stories</p>
-          <div class="blog-grid">
 
-            <article class="blog-card">
-              <span class="blog-tag">Internship · Experience</span>
-              <h3>What I Built at Weazy as a Web Dev Intern</h3>
-              <p>Flask APIs, image scraping pipelines, and Azure-ready microservices — how I reduced manual catalog work by 60% in 8 weeks.</p>
-              <div class="blog-meta">
-                <span>6 min read</span>
-                <span>2024</span>
-              </div>
-            </article>
-
-            <article class="blog-card">
-              <span class="blog-tag">AI · Tutorial</span>
-              <h3>Building a RAG Pipeline from Scratch with LangChain & FAISS</h3>
-              <p>A walkthrough of how I built Neobot — a retrieval-augmented generation assistant using FastAPI, FAISS vector search, and Docker.</p>
-              <div class="blog-meta">
+          <!-- Featured Article -->
+          <div class="blog-featured">
+            <div>
+              <div class="blog-featured-label"><span>Featured</span></div>
+              <h2>Building a RAG Pipeline from Scratch with LangChain & FAISS</h2>
+              <p>A walkthrough of how I built Neobot — a retrieval-augmented generation assistant using FastAPI, FAISS vector search, and Docker. From chunking documents to ranking results and generating answers.</p>
+              <div class="blog-featured-meta">
+                <span>AI · Tutorial</span>
                 <span>10 min read</span>
                 <span>2024</span>
               </div>
-            </article>
+            </div>
+            <div class="blog-featured-visual">
+              <span>RAG</span>
+            </div>
+          </div>
 
-            <article class="blog-card">
-              <span class="blog-tag">Community · Open Source</span>
-              <h3>Leading Onboarding Sessions at OPEN Community</h3>
-              <p>How I ran Git and Flutter workshops for 30+ students, and what I learned about teaching technical concepts to beginners.</p>
-              <div class="blog-meta">
-                <span>4 min read</span>
-                <span>2024</span>
-              </div>
-            </article>
+          <!-- Article List -->
+          <div class="blog-list">
 
-            <article class="blog-card">
-              <span class="blog-tag">Cloud · DevOps</span>
-              <h3>Deploying a CLI Tool on Azure App Service with GitHub Actions</h3>
-              <p>How URLZAP went from a local Python script to a CI/CD-deployed cloud app — step by step with GitHub Actions and Azure.</p>
-              <div class="blog-meta">
-                <span>7 min read</span>
-                <span>2024</span>
+            <div class="blog-list-item">
+              <span class="blog-list-num">01</span>
+              <div class="blog-list-body">
+                <span class="blog-list-tag">Internship · Experience</span>
+                <h3 class="blog-list-title">What I Built at Weazy as a Web Dev Intern</h3>
+                <p class="blog-list-desc">Flask APIs, image scraping pipelines, and Azure-ready microservices — how I reduced manual catalog work by 60% in 8 weeks.</p>
               </div>
-            </article>
+              <div class="blog-list-right">
+                <span class="blog-list-year">2024</span>
+                <span class="blog-list-read">6 min read</span>
+              </div>
+            </div>
 
-            <article class="blog-card">
-              <span class="blog-tag">Django · Backend</span>
-              <h3>Integrating Google Books API into a Django App</h3>
-              <p>The challenges and solutions behind connecting Supabase, Google Books API, and Django auth in NovelNet — a full-stack book platform.</p>
-              <div class="blog-meta">
-                <span>8 min read</span>
-                <span>2024</span>
+            <div class="blog-list-item">
+              <span class="blog-list-num">02</span>
+              <div class="blog-list-body">
+                <span class="blog-list-tag">Community · Open Source</span>
+                <h3 class="blog-list-title">Leading Onboarding Sessions at OPEN Community</h3>
+                <p class="blog-list-desc">How I ran Git and Flutter workshops for 30+ students, and what I learned about teaching technical concepts to beginners.</p>
               </div>
-            </article>
+              <div class="blog-list-right">
+                <span class="blog-list-year">2024</span>
+                <span class="blog-list-read">4 min read</span>
+              </div>
+            </div>
 
-            <article class="blog-card">
-              <span class="blog-tag">Stack · Notes</span>
-              <h3>My Python AI & Backend Stack Explained</h3>
-              <p>A breakdown of every tool in my stack — Python, FastAPI, LangChain, FAISS, Docker, Kubernetes, PostgreSQL — and why I use each one.</p>
-              <div class="blog-meta">
-                <span>5 min read</span>
-                <span>2025</span>
+            <div class="blog-list-item">
+              <span class="blog-list-num">03</span>
+              <div class="blog-list-body">
+                <span class="blog-list-tag">Cloud · DevOps</span>
+                <h3 class="blog-list-title">Deploying a CLI Tool on Azure App Service with GitHub Actions</h3>
+                <p class="blog-list-desc">How URLZAP went from a local Python script to a CI/CD-deployed cloud app — step by step with GitHub Actions and Azure.</p>
               </div>
-            </article>
+              <div class="blog-list-right">
+                <span class="blog-list-year">2024</span>
+                <span class="blog-list-read">7 min read</span>
+              </div>
+            </div>
+
+            <div class="blog-list-item">
+              <span class="blog-list-num">04</span>
+              <div class="blog-list-body">
+                <span class="blog-list-tag">Django · Backend</span>
+                <h3 class="blog-list-title">Integrating Google Books API into a Django App</h3>
+                <p class="blog-list-desc">The challenges behind connecting Supabase, Google Books API, and Django auth in NovelNet — a full-stack book platform.</p>
+              </div>
+              <div class="blog-list-right">
+                <span class="blog-list-year">2024</span>
+                <span class="blog-list-read">8 min read</span>
+              </div>
+            </div>
+
+            <div class="blog-list-item">
+              <span class="blog-list-num">05</span>
+              <div class="blog-list-body">
+                <span class="blog-list-tag">Stack · Notes</span>
+                <h3 class="blog-list-title">My Python AI & Backend Stack Explained</h3>
+                <p class="blog-list-desc">A breakdown of every tool in my stack — Python, FastAPI, LangChain, FAISS, Docker, Kubernetes, PostgreSQL — and why I use each one.</p>
+              </div>
+              <div class="blog-list-right">
+                <span class="blog-list-year">2025</span>
+                <span class="blog-list-read">5 min read</span>
+              </div>
+            </div>
 
           </div>
         </div>
