@@ -27,3 +27,33 @@
   from = "/certificates"
   to = "/certificates.html"
   status = 200
+
+[[redirects]]
+  from = "/blog/rag-pipeline"
+  to = "/blog/rag-pipeline.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/weazy-internship"
+  to = "/blog/weazy-internship.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/open-community"
+  to = "/blog/open-community.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/azure-deployment"
+  to = "/blog/azure-deployment.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/google-books-django"
+  to = "/blog/google-books-django.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/python-stack"
+  to = "/blog/python-stack.html"
+  status = 200

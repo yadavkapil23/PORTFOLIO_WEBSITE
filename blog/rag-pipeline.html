@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Building a RAG Pipeline from Scratch | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <div class="article-hero">
+      <div class="article-hero-inner">
+        <a class="article-back" href="/stories">← Back to Blog</a>
+        <p class="article-tag">AI · Tutorial</p>
+        <h1>Building a RAG Pipeline from Scratch with LangChain & FAISS</h1>
+        <div class="article-meta">
+          <span>Kapil</span>
+          <span>2024</span>
+          <span>10 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <div class="article-body-inner">
+
+        <p>When I started building Neobot, I wanted to understand every layer of a RAG (Retrieval-Augmented Generation) system — not just plug in a library and call it done. This is a full walkthrough of how I went from zero to a working assistant that retrieves relevant context and generates accurate answers.</p>
+
+        <h2>What is RAG and Why Does It Matter?</h2>
+        <p>Large Language Models (LLMs) are impressive, but they have a fundamental problem: their knowledge is frozen at training time. If you ask GPT-4 about something that happened last week, or about a private document in your company, it simply doesn't know.</p>
+        <p>RAG solves this by combining two things: a retrieval system that fetches relevant documents, and a language model that uses those documents to generate a grounded answer. Instead of relying purely on what the model has memorized, you feed it fresh, relevant context at inference time.</p>
+
+        <blockquote>RAG is not just a pattern — it's the difference between a chatbot that hallucinates and one that actually knows what it's talking about.</blockquote>
+
+        <h2>The Architecture</h2>
+        <p>My pipeline has four stages:</p>
+        <ul>
+          <li><strong>Document loading</strong> — ingest PDFs, text files, or web pages</li>
+          <li><strong>Chunking</strong> — split documents into overlapping chunks</li>
+          <li><strong>Embedding & indexing</strong> — convert chunks to vectors and store in FAISS</li>
+          <li><strong>Retrieval & generation</strong> — at query time, retrieve top-k chunks and pass to the LLM</li>
+        </ul>
+
+        <h2>Step 1: Loading and Chunking Documents</h2>
+        <p>The first challenge is getting text into a usable format. I used LangChain's document loaders to handle PDFs and plain text, then split them into chunks with overlap to preserve context across boundaries.</p>
+        <pre><code>from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=500,
+    chunk_overlap=50
+)
+chunks = splitter.split_documents(docs)</code></pre>
+        <p>The overlap is important — without it, a sentence split across two chunks loses its meaning. 50 characters of overlap was enough for my use case.</p>
+
+        <h2>Step 2: Embedding and FAISS Indexing</h2>
+        <p>Each chunk is converted into a vector using an embedding model. I used OpenAI's <code>text-embedding-ada-002</code> for its balance of cost and quality, then stored the vectors in a FAISS index for fast similarity search.</p>
+        <pre><code>from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import FAISS
+
+embeddings = OpenAIEmbeddings()
+vectorstore = FAISS.from_documents(chunks, embeddings)
+vectorstore.save_local("faiss_index")</code></pre>
+        <p>FAISS (Facebook AI Similarity Search) is a library built specifically for fast nearest-neighbor search over dense vectors. For a local index with thousands of documents, it's extremely fast — sub-millisecond lookups.</p>
+
+        <h2>Step 3: Retrieval at Query Time</h2>
+        <p>When a user asks a question, I embed the query and find the top 4 most similar chunks in the FAISS index.</p>
+        <pre><code>vectorstore = FAISS.load_local("faiss_index", embeddings)
+retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+docs = retriever.get_relevant_documents(user_query)</code></pre>
+
+        <h2>Step 4: Generation with Context</h2>
+        <p>The retrieved chunks are injected into a prompt template and passed to the LLM. I used LangChain's <code>RetrievalQA</code> chain to wire everything together cleanly.</p>
+        <pre><code>from langchain.chains import RetrievalQA
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+qa_chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    retriever=retriever,
+    return_source_documents=True
+)
+result = qa_chain({"query": user_query})</code></pre>
+
+        <h2>Serving It with FastAPI</h2>
+        <p>I wrapped the pipeline in a FastAPI endpoint so it could be called from any frontend or tested via Postman. The whole thing runs in Docker, making it easy to deploy anywhere.</p>
+        <pre><code>@app.post("/ask")
+async def ask(query: QueryRequest):
+    result = qa_chain({"query": query.question})
+    return {"answer": result["result"]}</code></pre>
+
+        <h2>What I Learned</h2>
+        <p>Building this from scratch taught me things no tutorial covers: chunk size has a massive impact on retrieval quality, embedding model choice matters more than the LLM choice for factual accuracy, and FAISS is incredibly powerful for local development before you move to a hosted vector DB like Pinecone or Weaviate.</p>
+        <p>The full project is on GitHub as <strong>Neobot_RAG</strong>. If you're building something similar, start with small chunks, test your retrieval quality independently before adding generation, and always measure hallucination rate.</p>
+
+        <hr class="article-divider" />
+        <p>The code for this project is available on <a href="https://github.com/yadavkapil23/Neobot_RAG.git" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">GitHub ↗</a></p>
+
+      </div>
+    </div>
+
+    <div class="article-footer">
+      <div class="article-footer-inner">
+        <span>© 2025 Kapil</span>
+        <a href="/stories">← All Articles</a>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
