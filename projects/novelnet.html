@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NovelNet | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="project-detail-hero" style="background:linear-gradient(135deg,#050505 60%,#0a1410);">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 75% 50%, rgba(47,157,114,0.08), transparent 50%);pointer-events:none;"></div>
+      <div class="project-detail-hero-inner">
+        <div>
+          <a class="project-detail-back" href="/work">← Back to Work</a>
+          <p class="project-detail-tag">Book Platform · 2024</p>
+          <h1>NovelNet</h1>
+          <p>A full-stack book discovery and review platform — search millions of books via the Google Books API, write reviews, manage your reading list, and discover what others are reading.</p>
+          <div class="project-detail-links">
+            <a class="button primary" href="https://netnovel.onrender.com/" target="_blank" rel="noreferrer">Live Demo ↗</a>
+            <a class="button ghost" href="/blog/google-books-django">Read Blog Post →</a>
+          </div>
+        </div>
+        <div class="project-visual-card web-visual">
+          <span class="project-visual-card-label">BK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META BAR -->
+    <div class="project-meta-bar" style="background:#0a0a0a;border-color:rgba(255,255,255,0.08);">
+      <div class="project-meta-bar-inner">
+        <div class="project-meta-item"><span>Type</span><strong>Full-Stack Web App</strong></div>
+        <div class="project-meta-item"><span>Stack</span><strong>Django · Supabase · Google Books API · PostgreSQL</strong></div>
+        <div class="project-meta-item"><span>Hosted On</span><strong>Render</strong></div>
+        <div class="project-meta-item"><span>Year</span><strong>2024</strong></div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="project-detail-body">
+      <div class="project-detail-body-inner">
+        <div class="project-detail-content">
+
+          <h2>The Idea</h2>
+          <p>NovelNet was born from a simple question: why is there no good, clean place to discover books and track what you've read? Goodreads exists, but it's slow and cluttered. I wanted to build something minimal and fast that still had a rich catalog.</p>
+          <p>The solution was to use the Google Books API as the data backbone — giving instant access to over 40 million books without maintaining a database of book metadata myself.</p>
+
+          <h3>Architecture Overview</h3>
+          <p>The application follows a standard Django MVT (Model-View-Template) pattern. The key architectural decision was the hybrid data model: book metadata is fetched from Google Books API and cached locally only when a user interacts with a book (reviews it, saves it, or searches for it).</p>
+
+          <h3>Google Books API Integration</h3>
+          <p>Search queries are sent to the Google Books Volumes endpoint with the user's query. Results are parsed and normalized into a consistent format before being displayed or stored. API responses are cached in Redis for 24 hours to minimize API calls and improve response speed.</p>
+
+          <h3>User Authentication</h3>
+          <p>Django's built-in authentication system handles user registration, login, and session management. Passwords are hashed with PBKDF2 by default. I extended the default User model with a profile that tracks reading lists and review history.</p>
+
+          <h3>Review System</h3>
+          <p>Each review is linked to a user and a book via foreign keys. Reviews include a 1–5 star rating and freeform text. The average rating for each book is computed as an aggregate query — efficient even with many reviews per book.</p>
+
+          <h3>Supabase (PostgreSQL) Backend</h3>
+          <p>I chose Supabase over SQLite for its managed PostgreSQL hosting, which gives production-grade reliability without server management. The connection uses Django's standard <code>django.db.backends.postgresql</code> engine with environment variables for credentials.</p>
+
+          <h3>Deployment on Render</h3>
+          <p>Render's free tier supports Python web services with automatic deploys from GitHub. The build command installs dependencies and runs Django migrations. Static files are served via WhiteNoise middleware — no separate static file server needed.</p>
+
+          <h2>Challenges & Solutions</h2>
+          <p>The main challenge was API rate limiting. The Google Books API allows 1000 free requests per day without a key and much more with one. Aggressive caching (Redis + local database) keeps actual API calls well below the limit even under heavy use.</p>
+          <p>A secondary challenge was cold starts on Render's free tier — the service sleeps after inactivity. I added a loading state to the frontend so users see feedback during the initial wake-up period rather than a blank page.</p>
+
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-sidebar-block">
+            <h4>Tech Stack</h4>
+            <ul>
+              <li>Python / Django</li>
+              <li>PostgreSQL</li>
+              <li>Supabase</li>
+              <li>Google Books API</li>
+              <li>Redis (caching)</li>
+              <li>WhiteNoise</li>
+              <li>Render</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Key Features</h4>
+            <ul>
+              <li>Book search (40M+ catalog)</li>
+              <li>User auth & profiles</li>
+              <li>Star ratings & reviews</li>
+              <li>Reading lists</li>
+              <li>API response caching</li>
+              <li>Responsive UI</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Links</h4>
+            <p><a href="https://netnovel.onrender.com/" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Live Demo ↗</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2025 Kapil</span>
+      <div class="footer-links">
+        <a href="/work">← All Projects</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

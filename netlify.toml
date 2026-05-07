@@ -57,3 +57,18 @@
   from = "/blog/python-stack"
   to = "/blog/python-stack.html"
   status = 200
+
+[[redirects]]
+  from = "/projects/rag-assistant"
+  to = "/projects/rag-assistant.html"
+  status = 200
+
+[[redirects]]
+  from = "/projects/novelnet"
+  to = "/projects/novelnet.html"
+  status = 200
+
+[[redirects]]
+  from = "/projects/urlzap"
+  to = "/projects/urlzap.html"
+  status = 200

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAG Based Assistant | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="project-detail-hero" style="background: linear-gradient(135deg,#050505 60%,#0a0d1a);">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 75% 50%, rgba(94,234,212,0.07), transparent 50%);pointer-events:none;"></div>
+      <div class="project-detail-hero-inner">
+        <div>
+          <a class="project-detail-back" href="/work">← Back to Work</a>
+          <p class="project-detail-tag">AI Assistant · 2024</p>
+          <h1>RAG Based Assistant</h1>
+          <p>A retrieval-augmented generation chatbot that answers questions from your own documents — built with LangChain, FAISS vector search, FastAPI, Docker, and Kubernetes.</p>
+          <div class="project-detail-links">
+            <a class="button primary" href="https://github.com/yadavkapil23/Neobot_RAG.git" target="_blank" rel="noreferrer">View on GitHub ↗</a>
+            <a class="button ghost" href="/blog/rag-pipeline">Read Blog Post →</a>
+          </div>
+        </div>
+        <div class="project-visual-card ai-visual">
+          <span class="project-visual-card-label">RAG</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META BAR -->
+    <div class="project-meta-bar" style="background:#0a0a0a;border-color:rgba(255,255,255,0.08);">
+      <div class="project-meta-bar-inner">
+        <div class="project-meta-item"><span>Type</span><strong>AI / NLP System</strong></div>
+        <div class="project-meta-item"><span>Stack</span><strong>Python · LangChain · FastAPI · FAISS · Docker</strong></div>
+        <div class="project-meta-item"><span>Status</span><strong>Deployed</strong></div>
+        <div class="project-meta-item"><span>Year</span><strong>2024</strong></div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="project-detail-body">
+      <div class="project-detail-body-inner">
+        <div class="project-detail-content">
+
+          <h2>The Problem</h2>
+          <p>Large language models are powerful, but they have a fundamental limitation: their knowledge is frozen at training time. They can't answer questions about your private documents, internal data, or anything that happened after their cutoff date.</p>
+          <p>The RAG Based Assistant (Neobot) solves this by combining a vector-based retrieval system with a language model — giving it the ability to answer questions grounded in real, up-to-date documents.</p>
+
+          <h3>How It Works</h3>
+          <p>The pipeline has four stages: documents are loaded and split into overlapping chunks, each chunk is converted to a vector embedding and stored in a FAISS index, at query time the most relevant chunks are retrieved, and finally the LLM generates an answer using those chunks as context.</p>
+          <pre><code>User query → Embed query → FAISS search → Top-K chunks
+→ Inject into prompt → LLM → Grounded answer</code></pre>
+
+          <h3>Document Processing</h3>
+          <p>Documents are split using LangChain's <code>RecursiveCharacterTextSplitter</code> with a chunk size of 500 tokens and 50-token overlap. The overlap prevents context loss at chunk boundaries — crucial for accurate retrieval on long documents.</p>
+
+          <h3>Vector Search with FAISS</h3>
+          <p>FAISS (Facebook AI Similarity Search) stores document embeddings and performs fast nearest-neighbor lookups. For a corpus of thousands of documents, FAISS can return the top 4 most relevant chunks in under a millisecond — without any external database service.</p>
+
+          <h3>FastAPI Backend</h3>
+          <p>The retrieval and generation pipeline is served via a FastAPI application. The <code>/ask</code> endpoint accepts a JSON body with the user's question and returns the generated answer along with the source documents used.</p>
+
+          <h3>Docker + Kubernetes Deployment</h3>
+          <p>The application is fully containerized with Docker and orchestrated with Kubernetes — allowing the retrieval and generation services to scale independently based on load. A Kubernetes deployment manifest controls replicas, resource limits, and health checks.</p>
+
+          <h2>Results & Learnings</h2>
+          <p>The system achieves significantly lower hallucination rates compared to a vanilla LLM — because every answer is anchored to retrieved source material. The key insight from this project: chunk size and embedding model quality matter more than which LLM you use for the generation step.</p>
+          <p>Future improvements: moving from FAISS to a hosted vector DB (Pinecone or Weaviate) for persistent storage, and adding a re-ranking step to improve retrieval precision.</p>
+
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-sidebar-block">
+            <h4>Tech Stack</h4>
+            <ul>
+              <li>Python 3.11</li>
+              <li>LangChain</li>
+              <li>FastAPI</li>
+              <li>FAISS</li>
+              <li>OpenAI API</li>
+              <li>Docker</li>
+              <li>Kubernetes</li>
+              <li>Uvicorn</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Key Features</h4>
+            <ul>
+              <li>Document ingestion</li>
+              <li>Semantic chunking</li>
+              <li>Vector similarity search</li>
+              <li>Source attribution</li>
+              <li>REST API interface</li>
+              <li>Container orchestration</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Links</h4>
+            <p><a href="https://github.com/yadavkapil23/Neobot_RAG.git" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">GitHub Repository ↗</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2025 Kapil</span>
+      <div class="footer-links">
+        <a href="/work">← All Projects</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

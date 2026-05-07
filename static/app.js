@@ -82,6 +82,34 @@ document.querySelectorAll(".blog-featured, .blog-list-item").forEach((el, i) => 
   revealObserver.observe(el);
 });
 
+/* ── Stat counters ───────────────────────────────────────── */
+const statObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const item = entry.target;
+      item.classList.add("revealed");
+      const counter = item.querySelector(".counter");
+      if (!counter) return;
+      const target = parseInt(counter.dataset.target, 10);
+      const duration = 1200;
+      const start = performance.now();
+      const animate = (now) => {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = Math.floor(ease * target);
+        if (progress < 1) requestAnimationFrame(animate);
+        else counter.textContent = target;
+      };
+      requestAnimationFrame(animate);
+      statObserver.unobserve(item);
+    });
+  },
+  { threshold: 0.3 }
+);
+document.querySelectorAll(".stat-item").forEach((el) => statObserver.observe(el));
+
 /* ── Skill bar animations ────────────────────────────────── */
 const skillObserver = new IntersectionObserver(
   (entries) => {
