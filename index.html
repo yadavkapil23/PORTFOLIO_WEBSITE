@@ -3,12 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Kapil's portfolio landing page for AIML and web development." />
+    <meta name="description" content="Kapil — AIML & Python Backend Developer. Building RAG assistants, FastAPI backends, and deployed web products." />
     <title>Kapil | AIML & Web Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <nav class="nav">
+
+    <!-- NAV -->
+    <nav class="nav" id="mainNav">
       <a class="nav-brand" href="/">Kapil</a>
       <div class="desktop-nav">
         <a href="/work">Work</a>
@@ -27,11 +30,24 @@
     </div>
 
     <main>
+      <!-- HERO -->
       <section class="hero">
         <div class="hero-bg" aria-hidden="true">
-          <div class="code-card card-one"><span>FastAPI</span><strong>RAG pipeline</strong><p>retrieve -> rank -> generate</p></div>
-          <div class="code-card card-two"><span>Django</span><strong>NovelNet</strong><p>reviews · auth · books api</p></div>
-          <div class="code-card card-three"><span>Azure</span><strong>URLZAP</strong><p>short links at scale</p></div>
+          <div class="code-card card-one">
+            <span>FastAPI</span>
+            <strong>RAG Pipeline</strong>
+            <p>retrieve → rank → generate</p>
+          </div>
+          <div class="code-card card-two">
+            <span>Django</span>
+            <strong>NovelNet</strong>
+            <p>reviews · auth · books api</p>
+          </div>
+          <div class="code-card card-three">
+            <span>Azure</span>
+            <strong>URLZAP</strong>
+            <p>short links at scale</p>
+          </div>
         </div>
 
         <div class="hero-inner">
@@ -42,13 +58,14 @@
             web systems
           </h1>
           <p class="hero-copy animate-fade-up delay-400">
-            I am Kapil, a third-year B.Tech CSE student at UPES. I build RAG assistants, backend APIs, and deployed web
-            products with Python, FastAPI, Django, LangChain, and Azure.
+            I am Kapil, a third-year B.Tech CSE student at UPES. I build RAG assistants,
+            backend APIs, and deployed web products with Python, FastAPI, Django, LangChain,
+            and Azure.
           </p>
           <div class="hero-actions animate-fade-up delay-500">
             <a class="button primary" href="/work">View Work</a>
             <a class="button ghost" href="/about">About Me</a>
-            <a class="button ghost" href="/static/assets/Kapil_Resume.pdf" download>Resume</a>
+            <a class="button ghost" href="/static/assets/Kapil_Resume.pdf" target="_blank">Resume ↗</a>
           </div>
         </div>
 
@@ -57,11 +74,53 @@
           <div><i></i></div>
         </div>
       </section>
+
+      <!-- TECH TICKER -->
+      <div class="ticker-wrap" aria-hidden="true">
+        <div class="ticker-track">
+          <!-- first set -->
+          <span class="ticker-item">Python</span>
+          <span class="ticker-item">FastAPI</span>
+          <span class="ticker-item">Django</span>
+          <span class="ticker-item">LangChain</span>
+          <span class="ticker-item">RAG</span>
+          <span class="ticker-item">FAISS</span>
+          <span class="ticker-item">Docker</span>
+          <span class="ticker-item">Kubernetes</span>
+          <span class="ticker-item">Azure</span>
+          <span class="ticker-item">PostgreSQL</span>
+          <span class="ticker-item">Supabase</span>
+          <span class="ticker-item">GitHub Actions</span>
+          <span class="ticker-item">REST APIs</span>
+          <span class="ticker-item">Machine Learning</span>
+          <span class="ticker-item">NLP</span>
+          <!-- duplicate for seamless loop -->
+          <span class="ticker-item">Python</span>
+          <span class="ticker-item">FastAPI</span>
+          <span class="ticker-item">Django</span>
+          <span class="ticker-item">LangChain</span>
+          <span class="ticker-item">RAG</span>
+          <span class="ticker-item">FAISS</span>
+          <span class="ticker-item">Docker</span>
+          <span class="ticker-item">Kubernetes</span>
+          <span class="ticker-item">Azure</span>
+          <span class="ticker-item">PostgreSQL</span>
+          <span class="ticker-item">Supabase</span>
+          <span class="ticker-item">GitHub Actions</span>
+          <span class="ticker-item">REST APIs</span>
+          <span class="ticker-item">Machine Learning</span>
+          <span class="ticker-item">NLP</span>
+        </div>
+      </div>
     </main>
 
     <footer>
-      <span>Kapil · Portfolio</span>
-      <a href="/contact">Contact</a>
+      <span>© 2025 Kapil</span>
+      <div class="footer-links">
+        <a href="https://github.com/yadavkapil23" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/kapil-516749313" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href="/contact">Contact</a>
+      </div>
     </footer>
 
     <script src="/static/app.js"></script>

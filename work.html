@@ -3,11 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Kapil's selected projects — AI, web platforms, and cloud utilities." />
     <title>Work | Kapil</title>
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body class="page-body">
-    <nav class="nav">
+
+    <nav class="nav" id="mainNav">
       <a class="nav-brand" href="/">Kapil</a>
       <div class="desktop-nav">
         <a href="/work">Work</a>
@@ -18,7 +20,10 @@
       <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
     </nav>
     <div id="mobileMenu" class="mobile-menu">
-      <a href="/work">Work</a><a href="/about">About</a><a href="/stories">Stories</a><a href="/contact">Contact</a>
+      <a href="/work">Work</a>
+      <a href="/about">About</a>
+      <a href="/stories">Stories</a>
+      <a href="/contact">Contact</a>
     </div>
 
     <main>
@@ -42,37 +47,65 @@
         </div>
 
         <div id="gallery" class="masonry-grid">
+
           <article class="gallery-item project-tile visible" data-category="ai">
             <div class="project-visual ai-visual"><span>RAG</span></div>
             <div class="project-copy">
               <p>AI Assistant</p>
               <h3>RAG Based Assistant</h3>
-              <span>LangChain · FastAPI · Docker · Kubernetes · FAISS</span>
-              <a href="https://github.com/yadavkapil23/Neobot_RAG.git" target="_blank" rel="noreferrer">View Code</a>
+              <div class="tags">
+                <span class="tag">LangChain</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Kubernetes</span>
+                <span class="tag">FAISS</span>
+              </div>
+              <a class="project-link" href="https://github.com/yadavkapil23/Neobot_RAG.git" target="_blank" rel="noreferrer">View Code ↗</a>
             </div>
           </article>
+
           <article class="gallery-item project-tile visible" data-category="web">
             <div class="project-visual web-visual"><span>BK</span></div>
             <div class="project-copy">
               <p>Book Platform</p>
               <h3>NovelNet</h3>
-              <span>Django · Supabase · Google Books API · PostgreSQL</span>
-              <a href="https://netnovel.onrender.com/" target="_blank" rel="noreferrer">Live Demo</a>
+              <div class="tags">
+                <span class="tag">Django</span>
+                <span class="tag">Supabase</span>
+                <span class="tag">Google Books API</span>
+                <span class="tag">PostgreSQL</span>
+              </div>
+              <a class="project-link" href="https://netnovel.onrender.com/" target="_blank" rel="noreferrer">Live Demo ↗</a>
             </div>
           </article>
+
           <article class="gallery-item project-tile visible" data-category="cloud">
             <div class="project-visual cloud-visual"><span>UZ</span></div>
             <div class="project-copy">
               <p>Cloud Utility</p>
               <h3>URLZAP</h3>
-              <span>Azure App Service · GitHub Actions · Argparse · CLI</span>
-              <a href="https://urlzap-c0dabcggbca5ftb0.centralindia-01.azurewebsites.net/" target="_blank" rel="noreferrer">Live Demo</a>
+              <div class="tags">
+                <span class="tag">Azure</span>
+                <span class="tag">GitHub Actions</span>
+                <span class="tag">Argparse</span>
+                <span class="tag">CLI</span>
+              </div>
+              <a class="project-link" href="https://urlzap-c0dabcggbca5ftb0.centralindia-01.azurewebsites.net/" target="_blank" rel="noreferrer">Live Demo ↗</a>
             </div>
           </article>
+
         </div>
       </section>
     </main>
-    <footer><span>Kapil · Work</span><a href="/">Home</a></footer>
+
+    <footer>
+      <span>© 2025 Kapil</span>
+      <div class="footer-links">
+        <a href="https://github.com/yadavkapil23" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="/">Home</a>
+      </div>
+    </footer>
+
     <script src="/static/app.js"></script>
   </body>
 </html>

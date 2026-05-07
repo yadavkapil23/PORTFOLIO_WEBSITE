@@ -1,15 +1,22 @@
-const menuBtn = document.querySelector("#menuBtn");
-const mobileMenu = document.querySelector("#mobileMenu");
-const filterButtons = document.querySelectorAll(".filter-btn");
-const galleryItems = document.querySelectorAll(".gallery-item");
-
-function toggleMenu() {
-  const isOpen = mobileMenu.classList.toggle("open");
-  menuBtn.setAttribute("aria-expanded", String(isOpen));
+/* ── Nav scroll glassmorphism ─────────────────────────────── */
+const mainNav = document.querySelector("#mainNav");
+if (mainNav) {
+  const onScroll = () => {
+    mainNav.classList.toggle("scrolled", window.scrollY > 40);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 }
 
+/* ── Mobile menu ──────────────────────────────────────────── */
+const menuBtn    = document.querySelector("#menuBtn");
+const mobileMenu = document.querySelector("#mobileMenu");
+
 if (menuBtn && mobileMenu) {
-  menuBtn.addEventListener("click", toggleMenu);
+  menuBtn.addEventListener("click", () => {
+    const isOpen = mobileMenu.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", String(isOpen));
+  });
 
   mobileMenu.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
@@ -19,9 +26,13 @@ if (menuBtn && mobileMenu) {
   });
 }
 
+/* ── Project filter ───────────────────────────────────────── */
+const filterButtons = document.querySelectorAll(".filter-btn");
+const galleryItems  = document.querySelectorAll(".gallery-item");
+
 function filterGallery(filter) {
-  filterButtons.forEach((button) => {
-    button.classList.toggle("active", button.dataset.filter === filter);
+  filterButtons.forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.filter === filter);
   });
 
   galleryItems.forEach((item, index) => {
@@ -36,19 +47,21 @@ function filterGallery(filter) {
   });
 }
 
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => filterGallery(button.dataset.filter));
+filterButtons.forEach((btn) => {
+  btn.addEventListener("click", () => filterGallery(btn.dataset.filter));
 });
 
+/* ── Scroll-triggered card reveal ────────────────────────── */
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
       }
     });
   },
-  { threshold: 0.15 }
+  { threshold: 0.12 }
 );
 
 galleryItems.forEach((item) => observer.observe(item));
