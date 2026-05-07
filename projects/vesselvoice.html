@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VesselVoice | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="project-detail-hero" style="background:linear-gradient(135deg,#050505 60%,#081420);">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 75% 50%, rgba(30,100,180,0.1), transparent 50%),radial-gradient(circle at 30% 80%, rgba(94,234,212,0.06), transparent 40%);pointer-events:none;"></div>
+      <div class="project-detail-hero-inner">
+        <div>
+          <a class="project-detail-back" href="/work">← Back to Work</a>
+          <p class="project-detail-tag">AI · Signal Processing · 2025</p>
+          <h1>VesselVoice</h1>
+          <p>An underwater acoustic classification system — a multi-class audio pipeline using CNN and ResNet-18 that classifies vessel sounds across 5 categories using spectrogram analysis and a real-time FastAPI backend.</p>
+          <div class="project-detail-links">
+            <a class="button primary" href="https://vesselvoice.onrender.com/" target="_blank" rel="noreferrer">Live Demo ↗</a>
+          </div>
+        </div>
+        <div class="project-visual-card" style="background:radial-gradient(circle at 35% 40%, #1a3a6c, transparent 45%),radial-gradient(circle at 75% 70%, rgba(94,234,212,0.12), transparent 40%),#0b0b0b;border-color:rgba(255,255,255,0.08);">
+          <span class="project-visual-card-label">VV</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META BAR -->
+    <div class="project-meta-bar" style="background:#0a0a0a;border-color:rgba(255,255,255,0.08);">
+      <div class="project-meta-bar-inner">
+        <div class="project-meta-item"><span>Type</span><strong>Deep Learning · Audio Classification</strong></div>
+        <div class="project-meta-item"><span>Stack</span><strong>ResNet-18 · Librosa · FastAPI · React · Docker</strong></div>
+        <div class="project-meta-item"><span>Hosted On</span><strong>Render</strong></div>
+        <div class="project-meta-item"><span>Year</span><strong>2025</strong></div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="project-detail-body">
+      <div class="project-detail-body-inner">
+        <div class="project-detail-content">
+
+          <h2>The Problem</h2>
+          <p>Identifying vessels from underwater acoustic signals is a critical challenge in maritime surveillance, environmental monitoring, and naval applications. Traditional approaches rely on manual expert analysis — slow, expensive, and not scalable. VesselVoice automates this using deep learning on audio spectrograms, achieving real-time classification across 5 vessel categories.</p>
+
+          <h3>Audio Classification Pipeline</h3>
+          <p>Raw underwater audio is converted into mel spectrograms — 2D visual representations of sound frequency over time. This transforms the audio classification problem into an image classification problem, enabling the use of powerful CNN architectures like ResNet-18 that are proven on visual data.</p>
+          <pre><code>import librosa
+import numpy as np
+
+def extract_spectrogram(audio_path: str) -> np.ndarray:
+    y, sr = librosa.load(audio_path, sr=22050)
+    mel_spec = librosa.feature.melspectrogram(
+        y=y, sr=sr, n_mels=128, fmax=8000
+    )
+    mel_db = librosa.power_to_db(mel_spec, ref=np.max)
+    return mel_db  # shape: (128, time_frames)</code></pre>
+
+          <h3>ResNet-18 for Spectrogram Classification</h3>
+          <p>ResNet-18 was chosen for its residual connections that prevent vanishing gradients in deeper layers, making it highly effective for extracting hierarchical features from spectrograms. The model was fine-tuned on underwater acoustic data, classifying signals into 5 vessel categories with strong accuracy across all classes.</p>
+
+          <h3>Custom Feature Extraction</h3>
+          <p>Beyond mel spectrograms, the pipeline also extracts MFCCs (Mel-Frequency Cepstral Coefficients) and spectral features — centroid, bandwidth, rolloff, and zero-crossing rate. These handcrafted features complement the deep features learned by ResNet, improving robustness on noisy underwater recordings.</p>
+          <pre><code>def extract_features(y, sr):
+    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
+    centroid = librosa.feature.spectral_centroid(y=y, sr=sr)
+    bandwidth = librosa.feature.spectral_bandwidth(y=y, sr=sr)
+    rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
+    zcr = librosa.feature.zero_crossing_rate(y)
+    return np.concatenate([
+        mfccs.mean(axis=1),
+        centroid.mean(axis=1),
+        bandwidth.mean(axis=1),
+        rolloff.mean(axis=1),
+        zcr.mean(axis=1)
+    ])</code></pre>
+
+          <h3>Real-Time Inference Engine</h3>
+          <p>The inference engine uses sliding window segmentation — the audio stream is divided into overlapping windows, each classified independently. The final prediction is determined by probability averaging across all windows, making the system robust against momentary noise or signal dropout that would fool a single-pass classifier.</p>
+          <pre><code>def sliding_window_inference(audio, window_size=2.0, hop=0.5, sr=22050):
+    predictions = []
+    start = 0
+    while start + window_size * sr <= len(audio):
+        segment = audio[int(start*sr):int((start+window_size)*sr)]
+        probs = model.predict(preprocess(segment))
+        predictions.append(probs)
+        start += hop
+    avg_probs = np.mean(predictions, axis=0)
+    return avg_probs.argmax(), avg_probs.max()</code></pre>
+
+          <h3>FastAPI Backend</h3>
+          <p>The classification pipeline is served via a FastAPI REST endpoint. Audio files are uploaded, processed through the full pipeline, and a prediction with confidence score is returned in JSON. The async design ensures the server can handle multiple concurrent requests without blocking.</p>
+
+          <h3>React Dashboard</h3>
+          <p>A React frontend provides a clean interface for uploading audio files, visualizing the spectrogram in real-time, and displaying classification results with confidence bars per category. The dashboard communicates with the FastAPI backend over REST.</p>
+
+          <h3>Docker + CI/CD Deployment</h3>
+          <p>The entire application — FastAPI backend and React frontend — is containerized with Docker and deployed on Render with an automated CI/CD pipeline. Every push to the main branch triggers a fresh build and deployment, ensuring the live version is always up to date.</p>
+
+          <h2>Results</h2>
+          <p>The system achieves reliable multi-class classification across 5 vessel categories using spectrogram analysis. The sliding window inference with probability averaging significantly improves prediction stability on real-world noisy underwater recordings compared to single-window classification.</p>
+
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-sidebar-block">
+            <h4>Tech Stack</h4>
+            <ul>
+              <li>Python</li>
+              <li>ResNet-18 (CNN)</li>
+              <li>Librosa</li>
+              <li>FastAPI</li>
+              <li>React</li>
+              <li>Docker</li>
+              <li>Render (CI/CD)</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Key Features</h4>
+            <ul>
+              <li>Mel spectrogram extraction</li>
+              <li>MFCC feature engineering</li>
+              <li>ResNet-18 classification</li>
+              <li>5-class prediction</li>
+              <li>Sliding window inference</li>
+              <li>Probability averaging</li>
+              <li>React dashboard</li>
+              <li>REST API</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Links</h4>
+            <p><a href="https://vesselvoice.onrender.com/" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Live Demo ↗</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2025 Kapil</span>
+      <div class="footer-links">
+        <a href="/work">← All Projects</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
