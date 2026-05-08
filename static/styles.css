@@ -35,6 +35,13 @@ body {
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; }
 
+/* layout adjust for sidebar */
+@media (min-width: 801px) {
+  body {
+    padding-left: 260px;
+  }
+}
+
 /* ─── ANIMATIONS ──────────────────────────────────────────── */
 @keyframes fadeUp  { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
 @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
@@ -61,26 +68,28 @@ button { font: inherit; cursor: pointer; }
 /* ─── NAV ─────────────────────────────────────────────────── */
 .nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0; left: 0; bottom: 0;
+  width: 260px;
   z-index: 20;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 22px clamp(22px,5vw,48px);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 48px clamp(22px,3vw,36px);
+  background: var(--black);
+  border-right: 1px solid var(--line);
   transition: background 0.4s ease, backdrop-filter 0.4s ease,
-              padding 0.3s ease, border-bottom 0.4s ease;
+              padding 0.3s ease, border-color 0.4s ease;
 }
 
 .nav.scrolled {
-  background: rgba(5,5,5,0.85);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--line);
-  padding: 14px clamp(22px,5vw,48px);
+  background: var(--black);
+  border-right: 1px solid var(--line);
+  padding: 48px clamp(22px,3vw,36px);
 }
 
 .nav-brand {
-  font-size: 0.78rem;
+  font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -90,8 +99,10 @@ button { font: inherit; cursor: pointer; }
 
 .desktop-nav {
   display: flex;
-  align-items: center;
-  gap: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+  margin-top: 64px;
 }
 
 .desktop-nav a,
@@ -99,7 +110,7 @@ button { font: inherit; cursor: pointer; }
 .menu-btn {
   position: relative;
   color: rgba(255,255,255,0.62);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 760;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -109,7 +120,7 @@ button { font: inherit; cursor: pointer; }
 .desktop-nav a::after {
   content: "";
   position: absolute;
-  bottom: -4px; left: 0;
+  bottom: -6px; left: 0;
   width: 0; height: 1px;
   background: var(--accent);
   transition: width 0.25s ease;
@@ -1588,6 +1599,25 @@ footer a:hover { color: var(--accent); }
 @media (min-width:1024px) { .masonry-grid { columns:3; } }
 
 @media (max-width:800px) {
+  .nav {
+    width: auto;
+    bottom: auto;
+    right: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px clamp(22px,5vw,48px);
+    border-right: none;
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled {
+    background: rgba(5,5,5,0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+    padding: 14px clamp(22px,5vw,48px);
+  }
+
   .desktop-nav { display:none; }
   .menu-btn    { display:block; }
   .code-card   { display:none; }
