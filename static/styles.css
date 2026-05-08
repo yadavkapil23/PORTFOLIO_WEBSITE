@@ -66,7 +66,7 @@ button {
 /* layout adjust for sidebar */
 @media (min-width: 801px) {
   body {
-    padding-left: 260px;
+    padding-left: 156px;
   }
 }
 
