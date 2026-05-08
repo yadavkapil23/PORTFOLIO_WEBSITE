@@ -82,6 +82,12 @@ document.querySelectorAll(".blog-featured, .blog-list-item").forEach((el, i) => 
   revealObserver.observe(el);
 });
 
+// testimonial cards
+document.querySelectorAll(".testimonial-card").forEach((el, i) => {
+  el.style.animationDelay = `${i * 0.12}s`;
+  revealObserver.observe(el);
+});
+
 /* ── Stat counters ───────────────────────────────────────── */
 const statObserver = new IntersectionObserver(
   (entries) => {
