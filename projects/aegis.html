@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AEGIS | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="project-detail-hero" style="background:linear-gradient(135deg,#050505 60%,#1a0a2e);">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 75% 50%, rgba(129,140,248,0.08), transparent 50%);pointer-events:none;"></div>
+      <div class="project-detail-hero-inner">
+        <div>
+          <a class="project-detail-back" href="/work">← Back to Work</a>
+          <p class="project-detail-tag">Cybersecurity · AI Detection · 2024</p>
+          <h1>AEGIS</h1>
+          <p>An advanced AI-powered cybersecurity threat detection platform — real-time anomaly detection, threat classification, incident response automation, and security analytics dashboard for comprehensive network protection.</p>
+          <div class="project-detail-links">
+            <a class="button primary" href="https://aegis-security.demo/" target="_blank" rel="noreferrer">Live Demo ↗</a>
+            <a class="button ghost" href="/blog/ai-threat-detection">Read Blog Post →</a>
+          </div>
+        </div>
+        <div class="project-visual-card ai-visual">
+          <span class="project-visual-card-label">AI</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META BAR -->
+    <div class="project-meta-bar" style="background:#0a0a0a;border-color:rgba(255,255,255,0.08);">
+      <div class="project-meta-bar-inner">
+        <div class="project-meta-item"><span>Type</span><strong>Full-Stack Security Platform</strong></div>
+        <div class="project-meta-item"><span>Stack</span><strong>Python · TensorFlow · PostgreSQL · FastAPI · React</strong></div>
+        <div class="project-meta-item"><span>Hosted On</span><strong>AWS</strong></div>
+        <div class="project-meta-item"><span>Year</span><strong>2024</strong></div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="project-detail-body">
+      <div class="project-detail-body-inner">
+        <div class="project-detail-content">
+
+          <h2>The Idea</h2>
+          <p>AEGIS was born from the need for a smarter, more proactive cybersecurity solution. Traditional rule-based threat detection systems are reactive and generate too many false positives. I wanted to build an intelligent platform that uses machine learning to detect anomalies and threats in real-time, learning from patterns and adapting to new attack vectors.</p>
+          <p>The vision was to combine network traffic analysis, behavioral anomaly detection, and AI-driven threat intelligence into a single unified platform that security teams can rely on.</p>
+
+          <h3>Architecture Overview</h3>
+          <p>AEGIS follows a microservices architecture with clear separation of concerns: data ingestion pipeline, ML inference engine, incident response orchestration, and a React-based analytics dashboard. The system processes millions of network events per day and makes real-time decisions using trained neural networks.</p>
+
+          <h3>Machine Learning Pipeline</h3>
+          <p>The core of AEGIS is a multi-model ensemble approach. We use Isolation Forests for general anomaly detection, LSTM neural networks for sequence-based threat patterns, and gradient boosted trees for feature importance analysis. Models are trained on historical security data and validated against known attack signatures from public datasets.</p>
+
+          <h3>Real-Time Data Processing</h3>
+          <p>Network traffic is captured via packet sniffing or log aggregation, converted to feature vectors, and passed through the ML pipeline. The system maintains a sliding window of recent events for context-aware detection. FastAPI serves the inference endpoints with sub-100ms latency using Redis caching.</p>
+
+          <h3>Threat Classification & Scoring</h3>
+          <p>Each detected anomaly is classified into categories: DDoS, brute force, data exfiltration, malware activity, or configuration drift. A threat severity score (1-10) is computed based on multiple factors: anomaly confidence, historical precedent, affected assets, and user criticality. Critical threats trigger automated incident tickets.</p>
+
+          <h3>Incident Response Automation</h3>
+          <p>When a threat reaches a certain threshold, AEGIS automatically triggers response actions: alerting security teams via Slack/email, isolating suspicious network segments, blocking malicious IPs, and creating incident records. Security analysts can override or fine-tune these responses through the dashboard.</p>
+
+          <h3>Analytics Dashboard</h3>
+          <p>A React-based frontend provides real-time visualization of threats, historical trends, model performance metrics, and drill-down capabilities. Teams can investigate incidents, review model explanations (SHAP values), and adjust detection sensitivity per asset group.</p>
+
+          <h3>Scalability & Deployment</h3>
+          <p>The system is containerized with Docker and orchestrated on AWS EKS. The ML pipeline runs on GPU instances (p3.2xlarge) for fast inference. Data is stored in PostgreSQL with hot/cold tiering in S3. Kubernetes auto-scaling ensures the system handles traffic spikes without degradation.</p>
+
+          <h2>Challenges & Solutions</h2>
+          <p><strong>Challenge 1: Model Drift</strong> — ML models trained on yesterday's data become less effective against today's attacks. Solution: Implemented continuous model monitoring and automated retraining pipelines using MLflow, with A/B testing before deploying new versions.</p>
+          <p><strong>Challenge 2: False Positives</strong> — Initial models had high false positive rates, creating alert fatigue. Solution: Used techniques like cost-sensitive learning, ensemble voting, and feedback loops where analyst decisions improve future predictions.</p>
+          <p><strong>Challenge 3: Latency Requirements</strong> — Security decisions needed to happen in milliseconds. Solution: Moved model serving to edge GPUs, implemented model quantization, and cached inference results.</p>
+          <p><strong>Challenge 4: Data Privacy</strong> — Processing sensitive network traffic while maintaining compliance. Solution: Added data anonymization pipelines, encrypted data at rest/in-transit, and role-based access controls.</p>
+
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-sidebar-block">
+            <h4>Tech Stack</h4>
+            <ul>
+              <li>Python 3.11</li>
+              <li>TensorFlow / Keras</li>
+              <li>Scikit-Learn</li>
+              <li>FastAPI</li>
+              <li>React 18</li>
+              <li>PostgreSQL</li>
+              <li>Redis</li>
+              <li>AWS (EKS, RDS, S3)</li>
+              <li>Docker & Kubernetes</li>
+              <li>SHAP for model explainability</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Key Features</h4>
+            <ul>
+              <li>Real-time anomaly detection</li>
+              <li>AI-powered threat classification</li>
+              <li>Multi-model ensemble learning</li>
+              <li>Automated incident response</li>
+              <li>Model explainability (SHAP)</li>
+              <li>Alert correlation & aggregation</li>
+              <li>Network visualization</li>
+              <li>Audit logs & compliance reporting</li>
+              <li>Integration with SIEM systems</li>
+              <li>Sub-100ms latency inference</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Links</h4>
+            <p><a href="https://aegis-security.demo/" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Live Demo ↗</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Kapil</span>
+      <div class="footer-links">
+        <a href="/work">← All Projects</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
