@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Graph RAG | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="project-detail-hero" style="background:linear-gradient(135deg,#050505 60%,#1a1025);">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 75% 50%, rgba(200,129,248,0.08), transparent 50%);pointer-events:none;"></div>
+      <div class="project-detail-hero-inner">
+        <div>
+          <a class="project-detail-back" href="/work">← Back to Work</a>
+          <p class="project-detail-tag">AI · Knowledge Graphs · 2026</p>
+          <h1>Graph RAG</h1>
+          <p>A portfolio-grade Graph Retrieval-Augmented Generation system that converts documents into a knowledge graph of entities and relationships, then answers multi-hop questions by traversing that graph.</p>
+          <div class="project-detail-links">
+            <a class="button primary" href="https://github.com/yadavkapil23" target="_blank" rel="noreferrer">View on GitHub ↗</a>
+          </div>
+        </div>
+        <div class="project-visual-card ai-visual">
+          <span class="project-visual-card-label">Graph RAG</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META BAR -->
+    <div class="project-meta-bar" style="background:#0a0a0a;border-color:rgba(255,255,255,0.08);">
+      <div class="project-meta-bar-inner">
+        <div class="project-meta-item"><span>Type</span><strong>AI / Knowledge Graph</strong></div>
+        <div class="project-meta-item"><span>Stack</span><strong>FastAPI · Neo4j · Qdrant · React</strong></div>
+        <div class="project-meta-item"><span>Hosted On</span><strong>Local / Docker</strong></div>
+        <div class="project-meta-item"><span>Year</span><strong>2026</strong></div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="project-detail-body">
+      <div class="project-detail-body-inner">
+        <div class="project-detail-content">
+
+          <h2>The Concept</h2>
+          <p>Vanilla RAG often struggles with complex, multi-hop reasoning because no single text chunk contains all the necessary facts. Graph RAG solves this by converting documents into a knowledge graph of entities and relationships. It can answer questions like "Which companies founded by ex-Apple employees compete with Apple?" by traversing the graph: <code>Apple --employed--> Person --founded--> Company --competes_with--> Apple</code>.</p>
+
+          <h3>Pipeline Stages</h3>
+          <ul>
+            <li><strong>Ingestion:</strong> Parses PDF/HTML/TXT into semantic chunks with overlap.</li>
+            <li><strong>Extraction:</strong> LLM extracts entities and relationships from each chunk.</li>
+            <li><strong>Entity Linking:</strong> Deduplicates entities (e.g., "Apple", "Apple Inc.", "AAPL" become one node).</li>
+            <li><strong>Graph:</strong> Writes entities and relationships to a Neo4j knowledge graph.</li>
+            <li><strong>Vector Store:</strong> Embeds chunks and stores them in Qdrant for semantic search.</li>
+            <li><strong>Communities:</strong> Uses the Leiden algorithm to cluster entities into topics and generate LLM summaries.</li>
+            <li><strong>Retrieval:</strong> Performs Local (entity hops), Global (communities), or Hybrid search.</li>
+            <li><strong>Generation:</strong> Uses a structured prompt with citations to generate answers.</li>
+          </ul>
+
+          <h3>Tech Stack Highlights</h3>
+          <p>The backend is built with <strong>FastAPI</strong> for async performance. For AI components, it uses <strong>Gemini 2.0 Flash</strong> for extraction, <strong>sentence-transformers (BAAI/bge-large-en-v1.5)</strong> for embeddings, and <strong>bge-reranker-v2-m3</strong> for ranking. The knowledge graph is powered by <strong>Neo4j</strong>, and semantic search relies on <strong>Qdrant</strong>. The frontend provides interactive graph visualization using <strong>React</strong> and <strong>d3-force</strong>.</p>
+
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-sidebar-block">
+            <h4>Tech Stack</h4>
+            <ul>
+              <li>Python / FastAPI</li>
+              <li>Neo4j & Qdrant</li>
+              <li>React & TypeScript</li>
+              <li>sentence-transformers</li>
+              <li>Gemini API</li>
+              <li>Docker Compose</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Key Features</h4>
+            <ul>
+              <li>LLM Entity Extraction</li>
+              <li>Community Detection (Leiden)</li>
+              <li>Hybrid Retrieval Search</li>
+              <li>Multi-hop Reasoning</li>
+              <li>Interactive D3 Visualization</li>
+              <li>Benchmarking & Eval Tools</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Links</h4>
+            <p><a href="https://github.com/yadavkapil23" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">View Source ↗</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Kapil</span>
+      <div class="footer-links">
+        <a href="/work">← All Projects</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
