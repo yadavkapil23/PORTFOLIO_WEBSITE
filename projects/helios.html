@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HELIOS | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="project-detail-hero" style="background:linear-gradient(135deg,#050505 60%,#0f2e1a);">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 75% 50%, rgba(129,248,140,0.08), transparent 50%);pointer-events:none;"></div>
+      <div class="project-detail-hero-inner">
+        <div>
+          <a class="project-detail-back" href="/work">← Back to Work</a>
+          <p class="project-detail-tag">Web · Systems Engineering · 2026</p>
+          <h1>HELIOS</h1>
+          <p>A real-time collaborative document editor — like Google Docs, but open-source and built from scratch with Rust CRDTs.</p>
+          <div class="project-detail-links">
+            <a class="button primary" href="https://helios-o1uo.onrender.com/" target="_blank" rel="noreferrer">Live Demo ↗</a>
+          </div>
+        </div>
+        <div class="project-visual-card web-visual">
+          <span class="project-visual-card-label">Rust / React</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META BAR -->
+    <div class="project-meta-bar" style="background:#0a0a0a;border-color:rgba(255,255,255,0.08);">
+      <div class="project-meta-bar-inner">
+        <div class="project-meta-item"><span>Type</span><strong>Collaborative Editor</strong></div>
+        <div class="project-meta-item"><span>Stack</span><strong>Rust · Tokio · Axum · React · WebSocket</strong></div>
+        <div class="project-meta-item"><span>Hosted On</span><strong>Render</strong></div>
+        <div class="project-meta-item"><span>Year</span><strong>2026</strong></div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="project-detail-body">
+      <div class="project-detail-body-inner">
+        <div class="project-detail-content">
+
+          <h2>What Is This?</h2>
+          <p>HELIOS is a full-stack collaborative editing system. Multiple users can open the same document in their browsers, type simultaneously, and see each other's edits appear in real time with live cursors. No operational transforms, no fighting over positions — every character gets a unique ID, so concurrent edits always converge.</p>
+          
+          <h3>Architecture Overview</h3>
+          <ul>
+            <li><strong>Backend:</strong> Rust server handling WebSocket connections, conflict resolution (CRDT + OT reconciler), persistence, and authentication</li>
+            <li><strong>Frontend:</strong> React app with a real-time text editor, login screen, and multi-cursor display</li>
+            <li><strong>Protocol:</strong> Custom WebSocket protocol with delta sync — on reconnect, you only get the ops you missed, not the whole document</li>
+          </ul>
+
+          <h3>How It Works</h3>
+          <p><strong>CRDT:</strong> Each character gets a unique ID (peer_id, clock). Operations carry IDs, not positions. Two clients inserting at the same position → deterministic order by peer ID.</p>
+          <p><strong>OT Reconciler:</strong> Server receives ops, checks constraints, emits corrections if needed.</p>
+          <p><strong>Ghost State:</strong> User types → op applied locally instantly (optimistic) → server may send correction → browser animates the diff.</p>
+          <p><strong>Delta Sync:</strong> Every op has a sequence number. On reconnect, client sends {since: last_seen_seq} and gets only missed ops.</p>
+
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-sidebar-block">
+            <h4>Tech Stack</h4>
+            <ul>
+              <li>Rust, Tokio, Axum</li>
+              <li>React, TypeScript, Vite</li>
+              <li>Custom RGA CRDT</li>
+              <li>WebSocket + JSON</li>
+              <li>wasm-bindgen</li>
+              <li>JWT with HMAC-SHA256</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Crates / Modules</h4>
+            <ul>
+              <li>helios-crdt</li>
+              <li>helios-ot-reconciler</li>
+              <li>helios-network</li>
+              <li>helios-sync</li>
+              <li>helios-presence</li>
+              <li>helios-storage</li>
+              <li>helios-auth</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Links</h4>
+            <p><a href="https://helios-o1uo.onrender.com/" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Live App ↗</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Kapil</span>
+      <div class="footer-links">
+        <a href="/work">← All Projects</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
