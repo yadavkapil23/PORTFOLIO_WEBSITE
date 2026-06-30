@@ -39,6 +39,13 @@ class PortfolioHandler(SimpleHTTPRequestHandler):
             self.send_file(TEMPLATE_DIR / ROUTES[route], "text/html; charset=utf-8")
             return
 
+        # Try mapping /projects/aegis to projects/aegis.html
+        if not route.endswith(".html"):
+            potential_file = (TEMPLATE_DIR / f"{route.lstrip('/')}.html").resolve()
+            if TEMPLATE_DIR in potential_file.parents and potential_file.is_file():
+                self.send_file(potential_file, "text/html; charset=utf-8")
+                return
+
         if route.startswith("/static/"):
             requested = route.removeprefix("/static/")
             target = (STATIC_DIR / requested).resolve()
