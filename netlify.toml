@@ -77,3 +77,18 @@
   from = "/projects/vesselvoice"
   to = "/projects/vesselvoice.html"
   status = 200
+
+[[redirects]]
+  from = "/projects/aegis"
+  to = "/projects/aegis.html"
+  status = 200
+
+[[redirects]]
+  from = "/projects/helios"
+  to = "/projects/helios.html"
+  status = 200
+
+[[redirects]]
+  from = "/projects/graph-rag"
+  to = "/projects/graph-rag.html"
+  status = 200
