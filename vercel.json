@@ -8,6 +8,7 @@
     { "src": "/contact",      "dest": "/contact.html" },
     { "src": "/skills",       "dest": "/skills.html" },
     { "src": "/certificates", "dest": "/certificates.html" },
+    { "src": "/coding",       "dest": "/coding.html" },
     { "src": "/(.*)",         "dest": "/$1" }
   ]
 }

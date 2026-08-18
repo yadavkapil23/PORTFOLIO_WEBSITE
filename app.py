@@ -28,6 +28,8 @@ ROUTES = {
     "/skills/": "skills.html",
     "/certificates": "certificates.html",
     "/certificates/": "certificates.html",
+    "/coding": "coding.html",
+    "/coding/": "coding.html",
 }
 
 

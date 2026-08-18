@@ -29,6 +29,11 @@
   status = 200
 
 [[redirects]]
+  from = "/coding"
+  to = "/coding.html"
+  status = 200
+
+[[redirects]]
   from = "/blog/rag-pipeline"
   to = "/blog/rag-pipeline.html"
   status = 200
