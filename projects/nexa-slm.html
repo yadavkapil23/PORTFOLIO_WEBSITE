@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NEXA SmallGPT | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/coding">Coding</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/coding">Coding</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="project-detail-hero" style="background:linear-gradient(135deg,#050505 60%,#12181f 100%);">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 75% 50%, rgba(129,140,248,0.1), transparent 50%);pointer-events:none;"></div>
+      <div class="project-detail-hero-inner">
+        <div>
+          <a class="project-detail-back" href="/work">← Back to Work</a>
+          <p class="project-detail-tag">AI · Language Models · 2026</p>
+          <h1>NEXA — GPT-Style SLM</h1>
+          <p>A GPT-style autoregressive language model built entirely from scratch in PyTorch. No pretrained weights, no <code>GPT2LMHeadModel</code>, no borrowed Transformer implementation — every layer hand-written and verified.</p>
+          <div class="project-detail-links">
+            <a class="button primary" href="https://huggingface.co/spaces/yadavkapil7155/nexa-smallgpt" target="_blank" rel="noreferrer">Live Demo ↗</a>
+            <a class="button ghost" href="https://github.com/kapilverse/SLM" target="_blank" rel="noreferrer">View on GitHub ↗</a>
+          </div>
+        </div>
+        <div class="project-visual-card ai-visual">
+          <span class="project-visual-card-label">NEXA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META BAR -->
+    <div class="project-meta-bar" style="background:#0a0a0a;border-color:rgba(255,255,255,0.08);">
+      <div class="project-meta-bar-inner">
+        <div class="project-meta-item"><span>Type</span><strong>AI / Language Model</strong></div>
+        <div class="project-meta-item"><span>Stack</span><strong>PyTorch · tiktoken · Gradio · CUDA</strong></div>
+        <div class="project-meta-item"><span>Trained On</span><strong>NVIDIA T4 (Colab Free Tier)</strong></div>
+        <div class="project-meta-item"><span>Year</span><strong>2026</strong></div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="project-detail-body">
+      <div class="project-detail-body-inner">
+        <div class="project-detail-content">
+
+          <h2>The Concept</h2>
+          <p>NEXA is a GPT-style autoregressive language model built from the ground up — no <code>AutoModelForCausalLM</code>, no <code>GPT2LMHeadModel</code>, no pretrained Transformer implementation. Every component was implemented and verified by hand: token and positional embeddings, causal self-attention, grouped-query attention (GQA), Transformer decoder blocks, AdamW optimization, checkpointed GPU training, autoregressive generation, and a deployed Gradio demo. It was trained on the <strong>TinyStories</strong> dataset using a single NVIDIA T4 GPU on Google Colab's free tier.</p>
+
+          <h3>Project Structure</h3>
+          <ul>
+            <li><strong>config.py</strong> — model + training hyperparameters</li>
+            <li><strong>tokenizer.py</strong> — GPT-2 BPE tokenizer (tiktoken, encode/decode only)</li>
+            <li><strong>dataset.py</strong> — text → token windows → DataLoader</li>
+            <li><strong>embeddings.py</strong> — token + positional embeddings</li>
+            <li><strong>attention.py</strong> — causal self-attention, causal masking, multi-head attention</li>
+            <li><strong>gqa.py</strong> — grouped-query attention</li>
+            <li><strong>transformer.py</strong> — feed-forward network, LayerNorm, Transformer decoder block</li>
+            <li><strong>model.py</strong> — SmallGPT: full model assembly + parameter counting</li>
+            <li><strong>train.py</strong> — training loop, GPU device handling, checkpointing</li>
+            <li><strong>checkpoint.py</strong> — save/load model + optimizer state</li>
+            <li><strong>generate.py</strong> — autoregressive generation with temperature + top-k sampling</li>
+            <li><strong>evaluate.py</strong> — loss / perplexity evaluation</li>
+            <li><strong>app.py</strong> — Gradio web app</li>
+          </ul>
+          <p>Each file includes <code>TODO(you)</code> comments marking the parts worth tracing by hand to understand the mechanics, and every file's <code>if __name__ == "__main__":</code> block runs standalone as a sanity check.</p>
+
+          <h3>Build Roadmap</h3>
+          <table class="project-table">
+            <thead>
+              <tr><th>Stage</th><th>Covers</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Foundations</td><td>PyTorch tensors, autograd, GPU basics</td><td>Done</td></tr>
+              <tr><td>Data pipeline</td><td>Tokenizer, dataset windows, embeddings</td><td>Done</td></tr>
+              <tr><td>Attention</td><td>Causal self-attention, GQA, Transformer block</td><td>Done</td></tr>
+              <tr><td>Full model</td><td>SmallGPT assembly, parameter counting</td><td>Done</td></tr>
+              <tr><td>Training</td><td>Colab T4 training, checkpointing</td><td>Done — 30,000 steps on TinyStories</td></tr>
+              <tr><td>Evaluation</td><td>Loss, perplexity, generation samples</td><td>Done</td></tr>
+              <tr><td>Deployment</td><td>Gradio demo on Hugging Face Spaces</td><td>Done</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Quickstart — Overfit a Tiny Dataset</h3>
+          <pre><code>pip install -r requirements.txt
+python train.py</code></pre>
+          <p>This trains on <code>data/tiny.txt</code> (4 lines) — training loss should drop close to 0, confirming the model can memorize a tiny dataset before scaling up to TinyStories.</p>
+
+          <h3>Training on TinyStories (Colab T4)</h3>
+          <p>Download and flatten TinyStories:</p>
+          <pre><code>python prepare_tinystories.py --output data/tinystories.txt --num-stories 500000</code></pre>
+          <p>Train (auto-detects CUDA):</p>
+          <pre><code>from train import train
+model, tok = train(data_path="data/tinystories.txt")</code></pre>
+          <p>Checkpoints save every <code>checkpoint_interval</code> steps — resume with:</p>
+          <pre><code>train(data_path="data/tinystories.txt", resume_from="checkpoints/ckpt_stepXXXX.pt")</code></pre>
+
+          <h3>Results</h3>
+          <p>Trained for 30,000 steps on 500K TinyStories, on a single Colab T4 GPU:</p>
+          <table class="project-table">
+            <thead>
+              <tr><th>Metric</th><th>Random init</th><th>Step 30,000</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Validation loss</td><td>10.92</td><td>2.28</td></tr>
+              <tr><td>Validation perplexity</td><td>~54,900</td><td>9.60</td></tr>
+            </tbody>
+          </table>
+
+          <p>Sample generation (temperature=0.8, top_k=40):</p>
+          <blockquote>
+            "Once upon a time, there was a little girl named Lily. She had a big, soft, fluffy pillow that she loved to sleep safe. One day, Lily's mommy told her to be careful by mistake..."
+          </blockquote>
+
+          <h3>Generating Text</h3>
+          <pre><code>python generate.py</code></pre>
+
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-sidebar-block">
+            <h4>Tech Stack</h4>
+            <ul>
+              <li>Python / PyTorch</li>
+              <li>tiktoken (GPT-2 BPE)</li>
+              <li>Gradio</li>
+              <li>CUDA (NVIDIA T4)</li>
+              <li>TinyStories Dataset</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Key Features</h4>
+            <ul>
+              <li>Hand-written causal self-attention</li>
+              <li>Grouped-Query Attention (GQA)</li>
+              <li>Transformer decoder blocks from scratch</li>
+              <li>Checkpointed GPU training</li>
+              <li>Temperature + top-k sampling</li>
+              <li>Loss / perplexity evaluation</li>
+              <li>Live Gradio deployment</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Links</h4>
+            <p><a href="https://huggingface.co/spaces/yadavkapil7155/nexa-smallgpt" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Live Demo (Gradio Space) ↗</a></p>
+            <p><a href="https://huggingface.co/yadavkapil7155/nexa-smallgpt" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Trained Model / Checkpoints ↗</a></p>
+            <p><a href="https://github.com/kapilverse/SLM" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">View Source ↗</a></p>
+            <p><a href="https://github.com/kapilverse/SLM/REPORT.md" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Technical Report ↗</a></p>
+            <p><a href="https://zenodo.org/records/22002958" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Research Paper (Zenodo) ↗</a></p>
+            <p><a href="https://huggingface.co/datasets/roneneldan/TinyStories" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">TinyStories Dataset ↗</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Kapil</span>
+      <div class="footer-links">
+        <a href="/work">← All Projects</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
