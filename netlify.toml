@@ -97,3 +97,8 @@
   from = "/projects/graph-rag"
   to = "/projects/graph-rag.html"
   status = 200
+
+[[redirects]]
+  from = "/projects/nexa-slm"
+  to = "/projects/nexa-slm.html"
+  status = 200

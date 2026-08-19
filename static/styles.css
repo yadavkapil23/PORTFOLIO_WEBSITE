@@ -1849,6 +1849,39 @@ footer a:hover {
   margin: 0 0 1.4em;
 }
 
+.project-detail-content blockquote {
+  margin: 0 0 1.6em;
+  padding: 18px 24px;
+  border-left: 3px solid var(--black);
+  background: rgba(0, 0, 0, 0.03);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.project-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.8em;
+  font-size: 0.9rem;
+}
+
+.project-table th,
+.project-table td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.project-table th {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.5);
+}
+
 .project-detail-content li {
   margin-bottom: 0.5em;
   font-size: 0.98rem;
