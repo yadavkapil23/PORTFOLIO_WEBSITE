@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Apex-64M SLM | Kapil</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav scrolled" id="mainNav">
+      <a class="nav-brand" href="/">Kapil</a>
+      <div class="desktop-nav">
+        <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certs</a>
+        <a href="/coding">Coding</a>
+        <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+      </div>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </nav>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/work">Work</a><a href="/skills">Skills</a><a href="/certificates">Certificates</a>
+      <a href="/coding">Coding</a>
+      <a href="/stories">Blog</a><a href="/about">About</a><a href="/contact">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="project-detail-hero" style="background:linear-gradient(135deg,#050505 60%,#151a24 100%);">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 75% 50%, rgba(94,234,212,0.1), transparent 50%);pointer-events:none;"></div>
+      <div class="project-detail-hero-inner">
+        <div>
+          <a class="project-detail-back" href="/work">← Back to Work</a>
+          <p class="project-detail-tag">AI · Small Language Models · 2026</p>
+          <h1>Apex-64M: SLM & Chat Assistant</h1>
+          <p>A complete, end-to-end 63.8M Parameter GPT-Style Decoder Transformer built and trained 100% from scratch in pure PyTorch, followed by Supervised Fine-Tuning (SFT) on Databricks Dolly 15k to create an instruction-following assistant.</p>
+          <div class="project-detail-links">
+            <a class="button primary" href="https://github.com/kapilverse/SMALL_MODEL" target="_blank" rel="noreferrer">View Repository ↗</a>
+            <a class="button ghost" href="https://github.com/kapilverse/Apex/blob/main/ARCHITECTURE.md" target="_blank" rel="noreferrer">Architecture Deep Dive ↗</a>
+          </div>
+        </div>
+        <div class="project-visual-card ai-visual">
+          <span class="project-visual-card-label">APEX-64M</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META BAR -->
+    <div class="project-meta-bar" style="background:#0a0a0a;border-color:rgba(255,255,255,0.08);">
+      <div class="project-meta-bar-inner">
+        <div class="project-meta-item"><span>Type</span><strong>SLM / Transformer Architecture</strong></div>
+        <div class="project-meta-item"><span>Stack</span><strong>PyTorch · FlashAttention · tiktoken · Gradio</strong></div>
+        <div class="project-meta-item"><span>Pre-Trained On</span><strong>C4 English (~1.28B Tokens)</strong></div>
+        <div class="project-meta-item"><span>Fine-Tuned On</span><strong>Databricks Dolly 15k</strong></div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="project-detail-body">
+      <div class="project-detail-body-inner">
+        <div class="project-detail-content">
+
+          <h2>Overview</h2>
+          <p><strong>Apex-64M</strong> is an ultra-compact, high-performance autoregressive decoder language model designed from first principles. Built without loading external pre-trained weights, Apex-64M combines pre-training on 1.28 billion tokens of clean web crawl data with instruction alignment via Supervised Fine-Tuning (SFT), dual-layer safety guardrails, and multi-turn context handling in a lightweight ~128 MB footprint.</p>
+
+          <h3>Highlights</h3>
+          <ul>
+            <li><strong>Built 100% From Scratch:</strong> Zero external pre-trained weights used. Pre-trained on ~1.28 Billion tokens of the C4 English corpus from random weight initialization $\mathcal{N}(0, 0.02)$.</li>
+            <li><strong>Instruction Aligned (SFT):</strong> Fine-tuned on Databricks Dolly 15k with prompt loss masking (<code>ignore_index = -1</code>) and 1-token autoregressive shifting.</li>
+            <li><strong>Multi-Turn Chat Memory:</strong> Sliding-window context buffer supporting multi-turn dialogue within 512 tokens.</li>
+            <li><strong>Dual-Layer Guardrails:</strong> Keyword heuristics + neural toxicity filtering (<code>unitary/toxic-bert</code>) for input and output safety.</li>
+            <li><strong>Ultra Lightweight:</strong> Weighs only ~128 MB (FP16) / ~255 MB (FP32). Runs at lightning speed on standard laptop CPUs with &lt;300 MB RAM!</li>
+          </ul>
+
+          <h3>Model Specifications</h3>
+          <table class="project-table">
+            <thead>
+              <tr><th>Parameter</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Model Name</td><td><strong>Apex-64M</strong></td></tr>
+              <tr><td>Total Parameters</td><td>63,823,360 (~63.82M)</td></tr>
+              <tr><td>Embedding Dimension (d_model)</td><td>512</td></tr>
+              <tr><td>Transformer Blocks (n_layer)</td><td>12</td></tr>
+              <tr><td>Attention Heads (n_head)</td><td>8 (head_dim = 64)</td></tr>
+              <tr><td>Feed-Forward Dimension (d_ffn)</td><td>2048 (4 × d_model)</td></tr>
+              <tr><td>Context Length</td><td>512 tokens</td></tr>
+              <tr><td>Vocabulary Size</td><td>50,257 (tiktoken GPT-2 / r50k_base)</td></tr>
+              <tr><td>Attention Mechanism</td><td>Fused FlashAttention (<code>F.scaled_dot_product_attention</code>)</td></tr>
+              <tr><td>Weight Sharing</td><td>Token Embedding ↔ LM Output Head (<code>wte.weight</code>)</td></tr>
+              <tr><td>Pre-Training Loss</td><td>~4.02 on C4 English (~1.28B tokens)</td></tr>
+              <tr><td>SFT Loss</td><td>~3.17 on Databricks Dolly 15k (3 Epochs)</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Repository Structure</h3>
+          <ul>
+            <li><strong>ARCHITECTURE.md</strong> — Complete Architectural Deep Dive, mathematical derivations, and parameter accounting.</li>
+            <li><strong>model.py</strong> — 63.8M Transformer architecture with Pre-LN, Flash Attention (<code>F.scaled_dot_product_attention</code>), and tied embedding weights.</li>
+            <li><strong>config.py</strong> — Hyperparameter dataclasses for <code>GPTConfig</code> and <code>TrainConfig</code>.</li>
+            <li><strong>tokenizer.py</strong> — OpenAI tiktoken BPE wrapper (50,257 vocabulary size).</li>
+            <li><strong>dataset.py</strong> — Continuous token packing pipeline with memory-mapped caching.</li>
+            <li><strong>train.py</strong> — Pre-training loop with AMP FP16, Cosine LR scheduling, and multi-cloud checkpointing.</li>
+            <li><strong>checkpoint.py</strong> — Robust checkpoint saving, loading, and Drive mirroring.</li>
+            <li><strong>evaluate.py</strong> — Perplexity evaluation and generation benchmarking.</li>
+            <li><strong>app.py</strong> — Gradio Web UI for live chatting with the Apex model.</li>
+          </ul>
+
+          <h3>Complete Training Pipeline</h3>
+          <pre><code>Stage 1: Pre-Training
+---------------------
+[C4 English ~1.28B Tokens] ---> [Apex-64M Base Foundation Model]
+                                  | (best_model.pt, val_loss ~4.02)
+                                  v
+Stage 2: Supervised Fine-Tuning
+-------------------------------
+[Databricks Dolly 15k]      ---> [Prompt Loss Masking & 1-Token Shift]
+                                  | (sft_model.pt, loss ~3.17)
+                                  v
+Stage 3: Deployment
+-------------------
+[Apex-64M Assistant]
+ - Multi-Turn Memory Buffer
+ - Toxic-BERT Safety Guardrails
+ - Interactive Gradio Web UI</code></pre>
+
+          <h3>Quickstart: Chat with Apex-64M</h3>
+          
+          <p><strong>1. Installation</strong></p>
+          <pre><code>git clone https://github.com/kapilverse/SMALL_MODEL.git
+cd SMALL_MODEL
+pip install torch transformers datasets tiktoken gradio</code></pre>
+
+          <p><strong>2. Interactive CLI Chat (with Memory &amp; Safety)</strong></p>
+          <pre><code>import torch
+from config import GPTConfig
+from model import SmallGPT
+from tokenizer import get_tokenizer
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+tokenizer = get_tokenizer()
+eot_id = tokenizer.eot_token
+config = GPTConfig()
+model = SmallGPT(config)
+
+# Load SFT Weights
+state_dict = torch.load("sft_model.pt", map_location=device)
+model.load_state_dict(state_dict)
+model = model.to(device).eval()
+
+def ask(question: str, temperature: float = 0.7, top_p: float = 0.9):
+    prompt = f"### Instruction:\n{question}\n\n### Response:\n"
+    tokens = tokenizer.encode(prompt)
+    idx = torch.tensor(tokens, dtype=torch.long, device=device).unsqueeze(0)
+    
+    with torch.no_grad():
+        for _ in range(150):
+            idx_cond = idx[:, -config.context_length:]
+            logits, _ = model(idx_cond)
+            logits = logits[:, -1, :] / max(temperature, 1e-5)
+            
+            # Top-P sampling
+            sorted_logits, sorted_indices = torch.sort(logits, descending=True)
+            cumulative_probs = torch.cumsum(torch.softmax(sorted_logits, dim=-1), dim=-1)
+            sorted_indices_to_remove = cumulative_probs > top_p
+            sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
+            sorted_indices_to_remove[..., 0] = 0
+            indices_to_remove = sorted_indices[sorted_indices_to_remove]
+            logits[:, indices_to_remove] = -float("Inf")
+            
+            probs = torch.softmax(logits, dim=-1)
+            next_token = torch.multinomial(probs, num_samples=1)
+            if next_token.item() == eot_id:
+                break
+            idx = torch.cat((idx, next_token), dim=1)
+            
+            # Early stop on new instruction header
+            current_text = tokenizer.decode(idx[0].tolist())
+            if "### Instruction:" in current_text.split("### Response:\n")[-1]:
+                break
+                
+    full_text = tokenizer.decode(idx[0].tolist())
+    answer = full_text.split("### Response:\n")[-1].split("### Instruction:")[0].strip()
+    return answer.replace("&lt;|endoftext|&gt;", "")
+
+print("Apex:", ask("What is the difference between a stack and a queue?"))</code></pre>
+
+          <p><strong>3. Launch Gradio Web Interface</strong></p>
+          <pre><code>python app.py</code></pre>
+
+          <h3>Technical Deep Dive &amp; License</h3>
+          <p>For complete technical details, mathematical derivations, loss masking explanations, and parameter breakdowns, see <a href="https://github.com/kapilverse/Apex/blob/main/ARCHITECTURE.md" target="_blank" rel="noreferrer" style="border-bottom:1px solid currentColor;padding-bottom:1px;">ARCHITECTURE.md</a>.</p>
+          <p>This project is open-source under the <a href="https://github.com/kapilverse/Apex/blob/main/LICENSE" target="_blank" rel="noreferrer" style="border-bottom:1px solid currentColor;padding-bottom:1px;">MIT License</a>.</p>
+
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-sidebar-block">
+            <h4>Tech Stack</h4>
+            <ul>
+              <li>PyTorch</li>
+              <li>FlashAttention</li>
+              <li>tiktoken (BPE)</li>
+              <li>Databricks Dolly 15k</li>
+              <li>C4 English Corpus</li>
+              <li>toxic-bert Guardrails</li>
+              <li>Gradio Web UI</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Key Features</h4>
+            <ul>
+              <li>63.8M Parameter Custom Transformer</li>
+              <li>Pre-trained on ~1.28B tokens</li>
+              <li>Instruction aligned with SFT</li>
+              <li>Prompt Loss Masking</li>
+              <li>Sliding-window multi-turn memory</li>
+              <li>Dual-layer toxicity guardrails</li>
+              <li>CPU real-time inference (&lt;300MB RAM)</li>
+              <li>Weight-tied embedding &amp; head</li>
+            </ul>
+          </div>
+          <div class="project-sidebar-block">
+            <h4>Links</h4>
+            <p><a href="https://github.com/kapilverse/SMALL_MODEL" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Source Repository ↗</a></p>
+            <p><a href="https://github.com/kapilverse/Apex/blob/main/ARCHITECTURE.md" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">Architecture Spec ↗</a></p>
+            <p><a href="https://github.com/kapilverse/Apex/blob/main/LICENSE" target="_blank" rel="noreferrer" style="border-bottom:1px solid #000;padding-bottom:2px;">MIT License ↗</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Kapil</span>
+      <div class="footer-links">
+        <a href="/work">← All Projects</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

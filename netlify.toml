@@ -102,3 +102,8 @@
   from = "/projects/nexa-slm"
   to = "/projects/nexa-slm.html"
   status = 200
+
+[[redirects]]
+  from = "/projects/apex"
+  to = "/projects/apex.html"
+  status = 200
