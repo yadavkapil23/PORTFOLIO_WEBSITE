@@ -38,21 +38,21 @@
     <div class="article-body">
       <div class="article-body-inner">
 
-        <p>When I started building Neobot, I wanted to understand every layer of a RAG (Retrieval-Augmented Generation) system — not just plug in a library and call it done. This is a full walkthrough of how I went from zero to a working assistant that retrieves relevant context and generates accurate answers.</p>
+        <p>When I started building Neobot, I wanted to understand every layer of a RAG (Retrieval-Augmented Generation) system - not just plug in a library and call it done. This is a full walkthrough of how I went from zero to a working assistant that retrieves relevant context and generates accurate answers.</p>
 
         <h2>What is RAG and Why Does It Matter?</h2>
         <p>Large Language Models (LLMs) are impressive, but they have a fundamental problem: their knowledge is frozen at training time. If you ask GPT-4 about something that happened last week, or about a private document in your company, it simply doesn't know.</p>
         <p>RAG solves this by combining two things: a retrieval system that fetches relevant documents, and a language model that uses those documents to generate a grounded answer. Instead of relying purely on what the model has memorized, you feed it fresh, relevant context at inference time.</p>
 
-        <blockquote>RAG is not just a pattern — it's the difference between a chatbot that hallucinates and one that actually knows what it's talking about.</blockquote>
+        <blockquote>RAG is not just a pattern - it's the difference between a chatbot that hallucinates and one that actually knows what it's talking about.</blockquote>
 
         <h2>The Architecture</h2>
         <p>My pipeline has four stages:</p>
         <ul>
-          <li><strong>Document loading</strong> — ingest PDFs, text files, or web pages</li>
-          <li><strong>Chunking</strong> — split documents into overlapping chunks</li>
-          <li><strong>Embedding & indexing</strong> — convert chunks to vectors and store in FAISS</li>
-          <li><strong>Retrieval & generation</strong> — at query time, retrieve top-k chunks and pass to the LLM</li>
+          <li><strong>Document loading</strong> - ingest PDFs, text files, or web pages</li>
+          <li><strong>Chunking</strong> - split documents into overlapping chunks</li>
+          <li><strong>Embedding & indexing</strong> - convert chunks to vectors and store in FAISS</li>
+          <li><strong>Retrieval & generation</strong> - at query time, retrieve top-k chunks and pass to the LLM</li>
         </ul>
 
         <h2>Step 1: Loading and Chunking Documents</h2>
@@ -64,7 +64,7 @@ splitter = RecursiveCharacterTextSplitter(
     chunk_overlap=50
 )
 chunks = splitter.split_documents(docs)</code></pre>
-        <p>The overlap is important — without it, a sentence split across two chunks loses its meaning. 50 characters of overlap was enough for my use case.</p>
+        <p>The overlap is important - without it, a sentence split across two chunks loses its meaning. 50 characters of overlap was enough for my use case.</p>
 
         <h2>Step 2: Embedding and FAISS Indexing</h2>
         <p>Each chunk is converted into a vector using an embedding model. I used OpenAI's <code>text-embedding-ada-002</code> for its balance of cost and quality, then stored the vectors in a FAISS index for fast similarity search.</p>
@@ -74,7 +74,7 @@ from langchain.vectorstores import FAISS
 embeddings = OpenAIEmbeddings()
 vectorstore = FAISS.from_documents(chunks, embeddings)
 vectorstore.save_local("faiss_index")</code></pre>
-        <p>FAISS (Facebook AI Similarity Search) is a library built specifically for fast nearest-neighbor search over dense vectors. For a local index with thousands of documents, it's extremely fast — sub-millisecond lookups.</p>
+        <p>FAISS (Facebook AI Similarity Search) is a library built specifically for fast nearest-neighbor search over dense vectors. For a local index with thousands of documents, it's extremely fast - sub-millisecond lookups.</p>
 
         <h2>Step 3: Retrieval at Query Time</h2>
         <p>When a user asks a question, I embed the query and find the top 4 most similar chunks in the FAISS index.</p>

@@ -41,10 +41,10 @@
         <p>NovelNet is a book discovery and review platform I built with Django. The core challenge was data: a good book platform needs a rich catalog of books with covers, descriptions, authors, and ISBNs. Building and maintaining that manually would be impossible. The Google Books API made it possible to have millions of books available from day one.</p>
 
         <h2>Why Google Books API?</h2>
-        <p>Google Books has an enormous catalog — over 40 million books — with structured metadata including titles, authors, descriptions, cover images, categories, and publication dates. It's free for reasonable usage and well-documented. The main limitation is rate limits (1000 requests per day without an API key, much more with one), which we handled with caching.</p>
+        <p>Google Books has an enormous catalog - over 40 million books - with structured metadata including titles, authors, descriptions, cover images, categories, and publication dates. It's free for reasonable usage and well-documented. The main limitation is rate limits (1000 requests per day without an API key, much more with one), which we handled with caching.</p>
 
         <h2>The Django Model Design</h2>
-        <p>I didn't want to store all book data in my database — that would be massive and require constant syncing. Instead, I used a hybrid approach: store only the books that users interact with (review, save, or search), and fetch the rest from the API on demand.</p>
+        <p>I didn't want to store all book data in my database - that would be massive and require constant syncing. Instead, I used a hybrid approach: store only the books that users interact with (review, save, or search), and fetch the rest from the API on demand.</p>
         <pre><code>class Book(models.Model):
     google_books_id = models.CharField(max_length=100, unique=True)
     title = models.CharField(max_length=500)
@@ -57,7 +57,7 @@
 
     class Meta:
         indexes = [models.Index(fields=["google_books_id"])]</code></pre>
-        <p>The <code>google_books_id</code> field is the key — it's Google's unique identifier for each book, and it's what we use to sync local records with the API.</p>
+        <p>The <code>google_books_id</code> field is the key - it's Google's unique identifier for each book, and it's what we use to sync local records with the API.</p>
 
         <h2>The API Integration Layer</h2>
         <p>I wrote a service module to handle all Google Books API communication. Keeping API calls in a dedicated service layer (not in views, not in models) made it easy to mock in tests and swap out later.</p>
@@ -106,7 +106,7 @@ def search_books_cached(query: str) -> list[dict]:
     return results</code></pre>
 
         <h2>Connecting Supabase as the Database</h2>
-        <p>I used Supabase (PostgreSQL) as the database backend instead of SQLite. The connection is straightforward in Django — Supabase provides a standard PostgreSQL connection string that you drop into <code>DATABASES</code> in settings.</p>
+        <p>I used Supabase (PostgreSQL) as the database backend instead of SQLite. The connection is straightforward in Django - Supabase provides a standard PostgreSQL connection string that you drop into <code>DATABASES</code> in settings.</p>
         <pre><code>DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -130,7 +130,7 @@ def search_books_cached(query: str) -> list[dict]:
 
         <h2>What I'd Do Differently</h2>
         <p>If I were building NovelNet again, I'd implement a proper background task queue (Celery) for pre-fetching books instead of lazy-loading them on first search. I'd also add full-text search on the local database using PostgreSQL's built-in <code>tsvector</code> for faster, more relevant results on frequently-searched titles.</p>
-        <p>The live version is deployed on Render and available to try — the search works fast thanks to the caching layer.</p>
+        <p>The live version is deployed on Render and available to try - the search works fast thanks to the caching layer.</p>
 
       </div>
     </div>

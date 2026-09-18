@@ -30,7 +30,7 @@
           <a class="project-detail-back" href="/work">← Back to Work</a>
           <p class="project-detail-tag">Systems Engineering · LLM Infrastructure · 2024</p>
           <h1>AEGIS</h1>
-          <p>An infrastructure-first, high-performance LLM inference engine — featuring multi-backend orchestration, speculative decoding loops, physical KV-cache management, and a cryptographic audit engine for secure, enterprise-grade AI deployments.</p>
+          <p>An infrastructure-first, high-performance LLM inference engine - featuring multi-backend orchestration, speculative decoding loops, physical KV-cache management, and a cryptographic audit engine for secure, enterprise-grade AI deployments.</p>
           <div class="project-detail-links">
             <a class="button primary" href="https://github.com/yadavkapil23/AI-Project" target="_blank" rel="noreferrer">View Source ↗</a>
             <a class="button ghost" href="/blog/building-llm-gateway">Read Blog Post →</a>
@@ -71,7 +71,7 @@
           <p>At its core, the project utilizes FFI bindings (`llama-cpp-2`) to hook directly into native C++ LLM operations. This allows AEGIS to intelligently allocate, evict, and reuse physical KV-cache memory blocks. By caching common organizational prompts right at the C++ level, latency drops drastically across successive requests.</p>
 
           <h3>Speculative Decoding Loops</h3>
-          <p>To break through the latency bottleneck required for fast Agentic AI, AEGIS implements Speculative Decoding. The engine uses a smaller, faster "draft" model to predict text rapidly, while a massive "target" model verifies those predictions in parallel—generating tokens significantly faster without needing massive server clusters.</p>
+          <p>To break through the latency bottleneck required for fast Agentic AI, AEGIS implements Speculative Decoding. The engine uses a smaller, faster "draft" model to predict text rapidly, while a massive "target" model verifies those predictions in parallel-generating tokens significantly faster without needing massive server clusters.</p>
 
           <h3>Cryptographic Audit Engine</h3>
           <p>Enterprise and healthcare environments demand proof of AI outputs. AEGIS secures every inference request by chaining them into an immutable Merkle hash tree. This creates mathematically tamper-proof execution logs, ensuring strict compliance and auditing capabilities.</p>
@@ -80,9 +80,9 @@
           <p>Production readiness means total visibility. The entire pipeline is instrumented with OpenTelemetry, funneling real-time metrics into Prometheus and Grafana. The API is locked down with strict rate limiters, JWT authentication, and concurrency constraints to protect against abuse and resource exhaustion.</p>
 
           <h2>Challenges & Solutions</h2>
-          <p><strong>Challenge 1: Unpredictable Inference Latency</strong> — Generating complex LLM responses was too slow for real-time applications and agents. Solution: Engineered Speculative Decoding loops where a draft model predicts tokens and the main model validates them in parallel, boosting generation speed immensely.</p>
-          <p><strong>Challenge 2: Enterprise Compliance Auditing</strong> — Regulators require exact proof of what an AI model generated and when, but logs can easily be tampered with. Solution: Implemented a Cryptographic Audit Engine that hashes and chains every inference into an immutable Merkle tree stored in PostgreSQL.</p>
-          <p><strong>Challenge 3: High Memory Overhead</strong> — Repeated, similar requests (like code completions) were taking up unnecessary GPU RAM. Solution: Built a Physical KV-Cache Scheduler directly tied to C++ that shares and reuses physical memory blocks across different requests to minimize overhead.</p>
+          <p><strong>Challenge 1: Unpredictable Inference Latency</strong> - Generating complex LLM responses was too slow for real-time applications and agents. Solution: Engineered Speculative Decoding loops where a draft model predicts tokens and the main model validates them in parallel, boosting generation speed immensely.</p>
+          <p><strong>Challenge 2: Enterprise Compliance Auditing</strong> - Regulators require exact proof of what an AI model generated and when, but logs can easily be tampered with. Solution: Implemented a Cryptographic Audit Engine that hashes and chains every inference into an immutable Merkle tree stored in PostgreSQL.</p>
+          <p><strong>Challenge 3: High Memory Overhead</strong> - Repeated, similar requests (like code completions) were taking up unnecessary GPU RAM. Solution: Built a Physical KV-Cache Scheduler directly tied to C++ that shares and reuses physical memory blocks across different requests to minimize overhead.</p>
 
         </div>
 

@@ -92,15 +92,15 @@
 
           <h3>Repository Structure</h3>
           <ul>
-            <li><strong>ARCHITECTURE.md</strong> — Complete Architectural Deep Dive, mathematical derivations, and parameter accounting.</li>
-            <li><strong>model.py</strong> — 63.8M Transformer architecture with Pre-LN, Flash Attention (<code>F.scaled_dot_product_attention</code>), and tied embedding weights.</li>
-            <li><strong>config.py</strong> — Hyperparameter dataclasses for <code>GPTConfig</code> and <code>TrainConfig</code>.</li>
-            <li><strong>tokenizer.py</strong> — OpenAI tiktoken BPE wrapper (50,257 vocabulary size).</li>
-            <li><strong>dataset.py</strong> — Continuous token packing pipeline with memory-mapped caching.</li>
-            <li><strong>train.py</strong> — Pre-training loop with AMP FP16, Cosine LR scheduling, and multi-cloud checkpointing.</li>
-            <li><strong>checkpoint.py</strong> — Robust checkpoint saving, loading, and Drive mirroring.</li>
-            <li><strong>evaluate.py</strong> — Perplexity evaluation and generation benchmarking.</li>
-            <li><strong>app.py</strong> — Gradio Web UI for live chatting with the Apex model.</li>
+            <li><strong>ARCHITECTURE.md</strong> - Complete Architectural Deep Dive, mathematical derivations, and parameter accounting.</li>
+            <li><strong>model.py</strong> - 63.8M Transformer architecture with Pre-LN, Flash Attention (<code>F.scaled_dot_product_attention</code>), and tied embedding weights.</li>
+            <li><strong>config.py</strong> - Hyperparameter dataclasses for <code>GPTConfig</code> and <code>TrainConfig</code>.</li>
+            <li><strong>tokenizer.py</strong> - OpenAI tiktoken BPE wrapper (50,257 vocabulary size).</li>
+            <li><strong>dataset.py</strong> - Continuous token packing pipeline with memory-mapped caching.</li>
+            <li><strong>train.py</strong> - Pre-training loop with AMP FP16, Cosine LR scheduling, and multi-cloud checkpointing.</li>
+            <li><strong>checkpoint.py</strong> - Robust checkpoint saving, loading, and Drive mirroring.</li>
+            <li><strong>evaluate.py</strong> - Perplexity evaluation and generation benchmarking.</li>
+            <li><strong>app.py</strong> - Gradio Web UI for live chatting with the Apex model.</li>
           </ul>
 
           <h3>Complete Training Pipeline</h3>

@@ -30,7 +30,7 @@
           <a class="project-detail-back" href="/work">← Back to Work</a>
           <p class="project-detail-tag">Web · Systems Engineering · 2026</p>
           <h1>HELIOS</h1>
-          <p>A real-time collaborative document editor — like Google Docs, but open-source and built from scratch with Rust CRDTs.</p>
+          <p>A real-time collaborative document editor - like Google Docs, but open-source and built from scratch with Rust CRDTs.</p>
           <div class="project-detail-links">
             <a class="button primary" href="https://helios-o1uo.onrender.com/" target="_blank" rel="noreferrer">Live Demo ↗</a>
           </div>
@@ -57,13 +57,13 @@
         <div class="project-detail-content">
 
           <h2>What Is This?</h2>
-          <p>HELIOS is a full-stack collaborative editing system. Multiple users can open the same document in their browsers, type simultaneously, and see each other's edits appear in real time with live cursors. No operational transforms, no fighting over positions — every character gets a unique ID, so concurrent edits always converge.</p>
+          <p>HELIOS is a full-stack collaborative editing system. Multiple users can open the same document in their browsers, type simultaneously, and see each other's edits appear in real time with live cursors. No operational transforms, no fighting over positions - every character gets a unique ID, so concurrent edits always converge.</p>
           
           <h3>Architecture Overview</h3>
           <ul>
             <li><strong>Backend:</strong> Rust server handling WebSocket connections, conflict resolution (CRDT + OT reconciler), persistence, and authentication</li>
             <li><strong>Frontend:</strong> React app with a real-time text editor, login screen, and multi-cursor display</li>
-            <li><strong>Protocol:</strong> Custom WebSocket protocol with delta sync — on reconnect, you only get the ops you missed, not the whole document</li>
+            <li><strong>Protocol:</strong> Custom WebSocket protocol with delta sync - on reconnect, you only get the ops you missed, not the whole document</li>
           </ul>
 
           <h3>How It Works</h3>

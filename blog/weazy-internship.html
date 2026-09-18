@@ -41,7 +41,7 @@
         <p>My internship at Weazy was the first time I had to write production code that real users and real business processes depended on. I went in as a third-year CSE student who had built side projects. I came out understanding what "production-ready" actually means.</p>
 
         <h2>The Context: What Weazy Does</h2>
-        <p>Weazy is a platform in the e-commerce space. One of their core challenges was product catalog management — specifically, getting images of products from various sources, processing them, and making them available in their system. The manual workflow was slow, error-prone, and didn't scale.</p>
+        <p>Weazy is a platform in the e-commerce space. One of their core challenges was product catalog management - specifically, getting images of products from various sources, processing them, and making them available in their system. The manual workflow was slow, error-prone, and didn't scale.</p>
         <p>My job was to automate parts of that pipeline using Python, Flask, and Azure services.</p>
 
         <h2>Project 1: Image Scraping Pipeline</h2>
@@ -54,7 +54,7 @@ def scrape_images(url: str) -> list[str]:
     soup = BeautifulSoup(response.text, "html.parser")
     images = soup.find_all("img", src=True)
     return [img["src"] for img in images if is_product_image(img)]</code></pre>
-        <p>The tricky part was <code>is_product_image</code> — figuring out which images were actually product images versus icons, logos, and banners. I built a heuristic based on image dimensions and CSS classes that got us to about 85% accuracy.</p>
+        <p>The tricky part was <code>is_product_image</code> - figuring out which images were actually product images versus icons, logos, and banners. I built a heuristic based on image dimensions and CSS classes that got us to about 85% accuracy.</p>
 
         <h2>Project 2: Flask API Layer</h2>
         <p>The scraping logic needed to be callable by the rest of the team's systems. I wrapped it in a Flask API with endpoints for triggering scraping jobs, checking job status, and retrieving results.</p>
@@ -63,7 +63,7 @@ def trigger_scrape():
     data = request.get_json()
     job_id = queue_scraping_job(data["url"])
     return jsonify({"job_id": job_id, "status": "queued"})</code></pre>
-        <p>I learned a lot about API design here — specifically, that long-running tasks should never be synchronous in a web server. I moved the scraping to a background queue (using Python's <code>threading</code> module initially, then moved to a proper task queue) and returned a job ID immediately.</p>
+        <p>I learned a lot about API design here - specifically, that long-running tasks should never be synchronous in a web server. I moved the scraping to a background queue (using Python's <code>threading</code> module initially, then moved to a proper task queue) and returned a job ID immediately.</p>
 
         <h2>Project 3: Azure-Ready Microservices</h2>
         <p>The third major piece was packaging the services for Azure deployment. I containerized each service with Docker, wrote deployment configs, and set up a basic CI pipeline so the team could deploy updates without manual steps.</p>
@@ -73,8 +73,8 @@ def trigger_scrape():
         <p>By the end of the internship, the pipeline was processing product image batches automatically. Tasks that previously took hours of manual downloading, renaming, and uploading were reduced to a few minutes of monitoring. The 60% reduction in manual catalog work was measured by comparing average time-per-product before and after.</p>
 
         <h2>What I Took Away</h2>
-        <p>The biggest lesson wasn't technical — it was about communication. When I hit a blocker, I had to explain it clearly to a non-technical stakeholder. That forced me to understand problems more deeply. If I can't explain what's broken in plain terms, I don't fully understand it yet.</p>
-        <p>The second lesson: always handle failures gracefully. Production systems hit edge cases constantly. Scraping a URL that returns a 429, an image that's actually a placeholder GIF, a server timeout at 3am — your code needs to handle all of it without crashing the whole pipeline.</p>
+        <p>The biggest lesson wasn't technical - it was about communication. When I hit a blocker, I had to explain it clearly to a non-technical stakeholder. That forced me to understand problems more deeply. If I can't explain what's broken in plain terms, I don't fully understand it yet.</p>
+        <p>The second lesson: always handle failures gracefully. Production systems hit edge cases constantly. Scraping a URL that returns a 429, an image that's actually a placeholder GIF, a server timeout at 3am - your code needs to handle all of it without crashing the whole pipeline.</p>
 
       </div>
     </div>

@@ -29,8 +29,8 @@
         <div>
           <a class="project-detail-back" href="/work">← Back to Work</a>
           <p class="project-detail-tag">AI · Language Models · 2026</p>
-          <h1>NEXA — GPT-Style SLM</h1>
-          <p>A GPT-style autoregressive language model built entirely from scratch in PyTorch. No pretrained weights, no <code>GPT2LMHeadModel</code>, no borrowed Transformer implementation — every layer hand-written and verified.</p>
+          <h1>NEXA - GPT-Style SLM</h1>
+          <p>A GPT-style autoregressive language model built entirely from scratch in PyTorch. No pretrained weights, no <code>GPT2LMHeadModel</code>, no borrowed Transformer implementation - every layer hand-written and verified.</p>
           <div class="project-detail-links">
             <a class="button primary" href="https://huggingface.co/spaces/yadavkapil7155/nexa-smallgpt" target="_blank" rel="noreferrer">Live Demo ↗</a>
             <a class="button ghost" href="https://github.com/kapilverse/SLM" target="_blank" rel="noreferrer">View on GitHub ↗</a>
@@ -58,23 +58,23 @@
         <div class="project-detail-content">
 
           <h2>The Concept</h2>
-          <p>NEXA is a GPT-style autoregressive language model built from the ground up — no <code>AutoModelForCausalLM</code>, no <code>GPT2LMHeadModel</code>, no pretrained Transformer implementation. Every component was implemented and verified by hand: token and positional embeddings, causal self-attention, grouped-query attention (GQA), Transformer decoder blocks, AdamW optimization, checkpointed GPU training, autoregressive generation, and a deployed Gradio demo. It was trained on the <strong>TinyStories</strong> dataset using a single NVIDIA T4 GPU on Google Colab's free tier.</p>
+          <p>NEXA is a GPT-style autoregressive language model built from the ground up - no <code>AutoModelForCausalLM</code>, no <code>GPT2LMHeadModel</code>, no pretrained Transformer implementation. Every component was implemented and verified by hand: token and positional embeddings, causal self-attention, grouped-query attention (GQA), Transformer decoder blocks, AdamW optimization, checkpointed GPU training, autoregressive generation, and a deployed Gradio demo. It was trained on the <strong>TinyStories</strong> dataset using a single NVIDIA T4 GPU on Google Colab's free tier.</p>
 
           <h3>Project Structure</h3>
           <ul>
-            <li><strong>config.py</strong> — model + training hyperparameters</li>
-            <li><strong>tokenizer.py</strong> — GPT-2 BPE tokenizer (tiktoken, encode/decode only)</li>
-            <li><strong>dataset.py</strong> — text → token windows → DataLoader</li>
-            <li><strong>embeddings.py</strong> — token + positional embeddings</li>
-            <li><strong>attention.py</strong> — causal self-attention, causal masking, multi-head attention</li>
-            <li><strong>gqa.py</strong> — grouped-query attention</li>
-            <li><strong>transformer.py</strong> — feed-forward network, LayerNorm, Transformer decoder block</li>
-            <li><strong>model.py</strong> — SmallGPT: full model assembly + parameter counting</li>
-            <li><strong>train.py</strong> — training loop, GPU device handling, checkpointing</li>
-            <li><strong>checkpoint.py</strong> — save/load model + optimizer state</li>
-            <li><strong>generate.py</strong> — autoregressive generation with temperature + top-k sampling</li>
-            <li><strong>evaluate.py</strong> — loss / perplexity evaluation</li>
-            <li><strong>app.py</strong> — Gradio web app</li>
+            <li><strong>config.py</strong> - model + training hyperparameters</li>
+            <li><strong>tokenizer.py</strong> - GPT-2 BPE tokenizer (tiktoken, encode/decode only)</li>
+            <li><strong>dataset.py</strong> - text → token windows → DataLoader</li>
+            <li><strong>embeddings.py</strong> - token + positional embeddings</li>
+            <li><strong>attention.py</strong> - causal self-attention, causal masking, multi-head attention</li>
+            <li><strong>gqa.py</strong> - grouped-query attention</li>
+            <li><strong>transformer.py</strong> - feed-forward network, LayerNorm, Transformer decoder block</li>
+            <li><strong>model.py</strong> - SmallGPT: full model assembly + parameter counting</li>
+            <li><strong>train.py</strong> - training loop, GPU device handling, checkpointing</li>
+            <li><strong>checkpoint.py</strong> - save/load model + optimizer state</li>
+            <li><strong>generate.py</strong> - autoregressive generation with temperature + top-k sampling</li>
+            <li><strong>evaluate.py</strong> - loss / perplexity evaluation</li>
+            <li><strong>app.py</strong> - Gradio web app</li>
           </ul>
           <p>Each file includes <code>TODO(you)</code> comments marking the parts worth tracing by hand to understand the mechanics, and every file's <code>if __name__ == "__main__":</code> block runs standalone as a sanity check.</p>
 
@@ -88,16 +88,16 @@
               <tr><td>Data pipeline</td><td>Tokenizer, dataset windows, embeddings</td><td>Done</td></tr>
               <tr><td>Attention</td><td>Causal self-attention, GQA, Transformer block</td><td>Done</td></tr>
               <tr><td>Full model</td><td>SmallGPT assembly, parameter counting</td><td>Done</td></tr>
-              <tr><td>Training</td><td>Colab T4 training, checkpointing</td><td>Done — 30,000 steps on TinyStories</td></tr>
+              <tr><td>Training</td><td>Colab T4 training, checkpointing</td><td>Done - 30,000 steps on TinyStories</td></tr>
               <tr><td>Evaluation</td><td>Loss, perplexity, generation samples</td><td>Done</td></tr>
               <tr><td>Deployment</td><td>Gradio demo on Hugging Face Spaces</td><td>Done</td></tr>
             </tbody>
           </table>
 
-          <h3>Quickstart — Overfit a Tiny Dataset</h3>
+          <h3>Quickstart - Overfit a Tiny Dataset</h3>
           <pre><code>pip install -r requirements.txt
 python train.py</code></pre>
-          <p>This trains on <code>data/tiny.txt</code> (4 lines) — training loss should drop close to 0, confirming the model can memorize a tiny dataset before scaling up to TinyStories.</p>
+          <p>This trains on <code>data/tiny.txt</code> (4 lines) - training loss should drop close to 0, confirming the model can memorize a tiny dataset before scaling up to TinyStories.</p>
 
           <h3>Training on TinyStories (Colab T4)</h3>
           <p>Download and flatten TinyStories:</p>
@@ -105,7 +105,7 @@ python train.py</code></pre>
           <p>Train (auto-detects CUDA):</p>
           <pre><code>from train import train
 model, tok = train(data_path="data/tinystories.txt")</code></pre>
-          <p>Checkpoints save every <code>checkpoint_interval</code> steps — resume with:</p>
+          <p>Checkpoints save every <code>checkpoint_interval</code> steps - resume with:</p>
           <pre><code>train(data_path="data/tinystories.txt", resume_from="checkpoints/ckpt_stepXXXX.pt")</code></pre>
 
           <h3>Results</h3>
